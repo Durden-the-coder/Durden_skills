@@ -2,8 +2,8 @@
 
 Peer-review skills and review workflows for NSFC grant applications.
 
-国家自然科学基金评审skill和工作流，多个专业skill调用和协作。目前已开发面上项目评审，后续可能追加其他类型的。
-当前skill经过人工核查，验证了输出结果具备相当高的质量，可以作为快速审阅本子的搭子，节约时间且不会遗漏关键细节。
+## 国家自然科学基金评审skill和工作流，多个专业skill调用和协作。目前已开发面上项目评审skill，后续可能追加其他类型的。
+## 当前skill经过人工核查，验证了输出结果具备相当高的质量，可以作为快速审阅本子的搭子，节约时间且不会遗漏关键细节。
 
 ## Skills
 
@@ -24,3 +24,7 @@ Main files:
 - `skills/nsfc-mianshang-review/scripts/extract_nsfc_text.py`
 
 This repository is intended to hold reusable skill bundles rather than full applications.
+
+## 声明：
+
+本人没有系统学习过编程，依靠AI辅助制作工具，肯定存在疏漏和不足，工具也会不定期迭代。
