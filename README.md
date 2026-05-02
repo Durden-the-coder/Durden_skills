@@ -4,6 +4,7 @@ Peer-review skills and review workflows for NSFC grant applications.
 
 ## 国家自然科学基金评审skill和工作流，多个专业skill调用和协作。目前已开发面上项目评审skill，后续可能追加其他类型的。
 ## 当前skill经过人工核查，验证了输出结果具备相当高的质量，可以作为快速审阅本子的搭子，节约时间且不会遗漏关键细节。
+## 也适合项目申请人提交申请书之前，核对和检查内容质量。
 
 ## Skills
 
