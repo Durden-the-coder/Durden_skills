@@ -4,6 +4,16 @@ Peer-review skills and review workflows for NSFC grant applications.
 
 本仓库用于存放面向科研评审和项目书预审的 reusable skills / workflow。当前重点是国自然面上项目评审 workflow，后续可能继续追加其他类型的科研评审或写作辅助 skill。
 
+## 项目介绍
+
+国家自然科学基金评审 skill 和工作流，通过多个专业 skill 的调用和协作，辅助完成项目书的结构化审阅。目前已开发 **面上项目评审 skill**，后续可能追加其他类型项目的评审 workflow。
+
+当前 skill 经过人工核查，验证了输出结果具备较高质量，可以作为快速审阅本子的“搭子”：帮助节约时间、搭建评审底稿，并尽量减少关键细节遗漏。
+
+它也适合项目申请人在提交申请书之前，用来核对和检查内容质量，提前暴露创新性、研究逻辑、可行性、文献边界和结构性缺陷等问题。
+
+这个仓库本质上也是一次练习：尝试把一个真实科研工作流，从临时 prompt 逐步整理成可复用的 skill / workflow / lightweight AI harness。欢迎交流、fork、提 issue 或提交改进。
+
 ## 声明
 
 本项目是一个非官方、实验性的 AI workflow skill，用于学习交流、内部预审和工作流探索。
