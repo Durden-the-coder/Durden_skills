@@ -1,6 +1,7 @@
 # Durden_skills
 
 Peer-review skills and review workflows for NSFC grant applications.
+国家自然科学基金评审skill和工作流，多个专业skill调用和协作。目前已开发面上项目评审，后续可能追加其他类型的
 
 ## Skills
 
