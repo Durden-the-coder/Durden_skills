@@ -1,0 +1,65 @@
+NSFC GENERAL PROGRAM REVIEW RUBRIC
+
+Use this reference only when consistent rating standards are needed.
+
+SCIENTIFIC SIGNIFICANCE
+High:
+- The central scientific question is clear, important, and basic-research oriented.
+- The proposal addresses a genuine unresolved mechanism, principle, or conceptual gap.
+- The field context is accurate and current.
+
+Medium:
+- The topic is relevant, but the scientific question is broad, partly derivative, or not sharply framed.
+- The research gap exists but needs clearer positioning.
+
+Low:
+- The proposal is mainly technical, descriptive, or application-driven.
+- The scientific question is vague, already answered, or not connected to the proposed work.
+
+INNOVATION
+High:
+- The proposal introduces a genuinely new concept, mechanism, model, method, or research angle.
+- The innovation claim is supported by literature gap and preliminary evidence.
+
+Medium:
+- The work has incremental novelty, but the main framework resembles existing studies.
+- Novelty depends heavily on context, cohort, model system, or technical combination.
+
+Low:
+- The proposal repackages known methods or routine extensions.
+- Novelty claims are overstated or not linked to a scientific advance.
+
+RESEARCH CONTENT AND APPROACH
+High:
+- Aims are coherent and mutually supportive.
+- Methods directly test the core hypothesis.
+- Controls, models, statistics, validation, and endpoints are appropriate.
+
+Medium:
+- The overall design is plausible, but key links are underdeveloped.
+- Some controls, validation steps, or statistical details need strengthening.
+
+Low:
+- Aims are disconnected or mostly technical.
+- The technical route cannot answer the scientific question.
+- Critical controls, validation, or feasibility steps are missing.
+
+RESEARCH BASIS AND FEASIBILITY
+High:
+- Preliminary data and prior work strongly support the proposed direction.
+- Team expertise and conditions match the required methods.
+- Risks and alternatives are concrete and credible.
+
+Medium:
+- The team has relevant basis, but key preliminary support or risk handling is incomplete.
+
+Low:
+- Feasibility relies on unsupported assumptions.
+- Key resources, expertise, preliminary data, or alternatives are missing.
+
+REVIEW IMPACT
+Major concern:
+- A flaw that may affect funding priority, scientific validity, feasibility, or innovation.
+
+Minor concern:
+- A fixable issue that improves clarity, completeness, or presentation but does not change the main judgment.
