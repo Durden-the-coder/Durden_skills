@@ -1,28 +1,44 @@
 ---
 name: nsfc-mianshang-review
-version: 0.4.2
-description: Review National Natural Science Foundation of China General Program applications with a cache-first, PDF-to-TXT, staged workflow. Use for NSFC mian-shang proposal review, scientific value, innovation, feasibility, and structured Chinese review comments. Coordinates literature-review, scientific-critical-thinking, peer-review, reviewer-2-simulator, and scientific-writing while minimizing token use.
+version: 0.4.3
+description: Review National Natural Science Foundation of China NSFC General Program applications using the 2026 General Program outline. Use for NSFC general program, mian-shang project, grant proposal review, project rationale, research content, research basis, feasibility analysis, scientific value, innovation, feasibility, and formal review comments. Acts as a workflow harness for literature-review, scientific-critical-thinking, peer-review, reviewer-2-simulator, and scientific-writing: explicitly route to those skills when available, but fall back to equivalent in-agent roles when a runtime cannot invoke supporting skills. Minimizes token use through PDF-to-TXT extraction, structured cache files, and staged review.
 ---
 
-# NSFC Mianshang Review
+# NSFC General Program Review
 
-Use this skill as the workflow entry point for NSFC General Program proposal review.
+Use this skill as the workflow entry point for NSFC General Program proposal review. It coordinates PDF/TXT preparation, cache-first analysis, explicit supporting-skill routing when available, and role-equivalent fallback when supporting skills cannot be invoked.
 
 ## Non-Negotiable File Rules
 
-- If the user provides a PDF, local PDF-to-TXT extraction is the default entry behavior.
-- Read the PDF only during the PDF-to-TXT conversion step.
-- After TXT extraction succeeds, never read the PDF again.
-- Later review work must use TXT files, cache files, and short copied evidence snippets.
-- If the PDF is encrypted or extraction is blocked, do not treat this as a normal failure. Ask for password, decrypted PDF, exported TXT, or OCR text.
+- If the user provides a PDF, local PDF-to-TXT extraction is the default entry behavior. Do not require manual step-by-step preparation unless extraction is blocked.
+- If the input is a PDF, read it only during the PDF-to-TXT conversion step.
+- After TXT extraction succeeds, never read the PDF again. Later work must use TXT files, cache files, stage files, and short copied evidence snippets.
+- If the PDF is encrypted or text extraction is blocked, do not treat this as a normal failure. Ask for password, decrypted PDF, exported TXT, or OCR text.
 - Prefer `.txt` as the primary working copy. Markdown is optional and only for human-facing summaries.
-- Run all workflow artifacts under the user-specified review directory.
+- Run all workflow artifacts under the user-specified review directory or the inferred proposal-local review directory.
 - Do not write workflow artifacts to system folders, user profile cache locations, global skill directories, or agent home directories by default.
-- If the user does not provide a review directory, create `nsfc_review_<proposal-stem>` in the parent directory of the proposal folder.
+- The user should only need to provide the proposal path and, when needed, the PDF password. If no review directory is provided, create a clean proposal-specific review folder in the parent directory of the proposal folder. Example: for `D:\AI projects\claude_code\2026国自然评审\项目书\proposal.pdf`, use `D:\AI projects\claude_code\2026国自然评审\nsfc-review-proposal\`.
 - Keep the proposal folder clean. Do not write extracted or review files into the proposal folder unless explicitly asked.
-- Chinese source text is expected. Produce final review text in polished Chinese by default.
+- Chinese source text is expected. Preserve scientific terms accurately and produce final review text in polished Chinese by default.
 
-## Default File Layout
+## Scope
+
+Review these components by default:
+
+- title and Chinese abstract;
+- project rationale: scientific value, research gap, significance, field status, key scientific question;
+- research content: objectives, scientific questions, tasks, technical route, distinctive features, innovation, annual plan;
+- research basis: prior work, preliminary data, feasibility analysis, risks and mitigation;
+- team background, representative papers, and related projects only when they affect feasibility, novelty, overlap, or independence;
+- non-text visual materials only through explicit human review.
+
+Exclude low-value administrative review by default: budget details, attachment directory mechanics, unit-consistency declarations, recommendation-letter logistics, routine certificates, and generic form-filling checks.
+
+If key claims depend on images, diagrams, gels, microscopy panels, model schematics, workflow figures, or result plots that were not reliably converted into text, the final review must explicitly say those materials still require human inspection.
+
+## Workflow Artifacts
+
+Use this structure under the review directory:
 
 ```text
 review_dir/
@@ -38,144 +54,164 @@ review_dir/
     04_final_review.txt
 ```
 
-## Primary Review Scope
+Create TXT artifacts first with:
 
-Default focus:
+```bash
+<python> scripts/extract_nsfc_text.py --proposal <proposal.pdf-or-txt> [--password <pdf-password>] --init-review-files
+```
 
-1. 标题
-2. 中文摘要
-3. 立项依据
-4. 研究内容（含特色与创新点、年度计划）
-5. 研究基础（含可行性分析）
+If the user explicitly provides a review directory, add:
 
-Default low-priority exclusions:
+```bash
+--workdir <review_dir>
+```
 
-- budget details
-- attachment directory mechanics
-- routine form-filling checks
-- recommendation-letter logistics
-- generic declarations
+If `--workdir` is omitted, the script creates `nsfc-review-<proposal-stem>` in the parent directory of the folder containing the proposal.
 
 ## Required Workflow
 
 ### 1. Prepare Text Working Copy
 
-If the input is a PDF, run:
+If the proposal is a PDF, automatically begin by running `scripts/extract_nsfc_text.py` with an available Python runtime to create `extracted/00_full_text.txt`, `extracted/01_section_index.txt`, and `extracted/extraction_report.txt`.
 
-```bash
-<python> scripts/extract_nsfc_text.py --proposal <proposal.pdf-or-txt> --workdir <review_dir>
-```
-
-If the environment is unreliable at creating new files outside its current workspace, add:
-
-```bash
---init-review-files
-```
-
-If extraction reports encrypted PDF status, stop and ask the user for the next input format. Do not continue reviewing from the PDF.
+If extraction reports `ENCRYPTED_PDF`, stop and ask the user for the next input format. Do not continue reviewing from the PDF. This is an action-required state, not a workflow failure.
 
 ### 2. Route Before Deep Review
 
 Start each review with a short routing note:
 
-- task type: full review / section review / internal pre-screen / revision planning
-- available artifacts: TXT, section index, cache, final review draft
-- skills to use and why
-- excluded low-value administrative materials
+- task type: full review, section review, pre-submission self-check, or revision planning;
+- available artifacts: TXT, section index, cache, stage files, final review draft;
+- skills to use and why;
+- excluded low-value administrative materials.
 
 Default routing:
 
-- title / abstract -> `peer-review`
-- project rationale -> `scientific-critical-thinking` + targeted `literature-review`
-- research content -> `scientific-critical-thinking` + `reviewer-2-simulator` + `peer-review`
-- research basis -> `scientific-critical-thinking` + `peer-review`
-- final polishing -> `scientific-writing`
+- Title and Chinese abstract: `peer-review` for quick proposal positioning and overall framing.
+- Project rationale: `scientific-critical-thinking` plus targeted `literature-review`.
+- Research content: `scientific-critical-thinking`, `reviewer-2-simulator`, and `peer-review`.
+- Research basis: `scientific-critical-thinking` and `peer-review`.
+- Final organization and language: `peer-review` plus `scientific-writing`.
+
+Supporting skill routing policy:
+
+- At each stage, first try to explicitly load or call the named supporting skill if the runtime exposes a skill mechanism.
+- If a supporting skill is not installed, cannot be loaded, or the runtime does not support skill-to-skill routing, do not stop the workflow. Instead, perform the equivalent role in the current agent and write the stage artifact.
+- The workflow succeeds when all required stage files contain role-appropriate analysis. It does not require the UI to show separate supporting-skill calls.
+- When fallback is used, briefly note it inside the relevant stage file, for example: `Routing note: scientific-critical-thinking was unavailable; current agent completed this role directly.`
+- Do not skip literature checks merely because `literature-review` is unavailable. Use available web search, PubMed/Entrez tools, or concise manual query synthesis for targeted novelty checks.
 
 ### 3. Build Or Update Review Cache
 
 Before final judgment, create `review/nsfc_review_cache.txt`. Do not summarize the entire proposal. Extract only decision-relevant content.
 
-Required cache fields:
+Cache schema:
 
-- BASIC INFORMATION
-- CORE SCIENTIFIC QUESTION
-- CENTRAL HYPOTHESIS OR MAIN LOGIC
-- SIGNIFICANCE CLAIMS
-- RESEARCH OBJECTIVES AND CONTENT
-- CLAIMED INNOVATION
-- TECHNICAL ROUTE
-- PRELIMINARY BASIS AND FEASIBILITY
-- RISKS AND ALTERNATIVES
-- APPLICANT/TEAM FIT
-- RELATED PROJECT OVERLAP OR CONTINUITY
-- KEY LITERATURE CLAIMS TO VERIFY
-- CANDIDATE MAJOR CONCERNS
-- CANDIDATE MINOR CONCERNS
+```text
+NSFC GENERAL PROGRAM REVIEW CACHE
+
+BASIC INFORMATION
+Title:
+Field:
+Research attribute: free exploration / goal-oriented / unclear
+Duration:
+Collaborators:
+
+CORE SCIENTIFIC QUESTION
+
+CENTRAL HYPOTHESIS OR MAIN LOGIC
+
+SIGNIFICANCE CLAIMS
+- Claim:
+  Evidence in application:
+  Concern:
+
+RESEARCH OBJECTIVES AND CONTENT
+- Objective/Aim:
+  Methods:
+  Expected result:
+  Risk:
+
+CLAIMED INNOVATION
+- Innovation claim:
+  Basis:
+  Concern:
+
+TECHNICAL ROUTE
+
+PRELIMINARY BASIS AND FEASIBILITY
+- Evidence:
+  Supports:
+  Limitation:
+
+RISKS AND ALTERNATIVES
+
+APPLICANT/TEAM FIT
+
+RELATED PROJECT OVERLAP OR CONTINUITY
+
+KEY LITERATURE CLAIMS TO VERIFY
+
+CANDIDATE MAJOR CONCERNS
+
+CANDIDATE MINOR CONCERNS
+```
+
+Reuse this cache in later steps. Return to `00_full_text.txt` only for missing details or short evidence quotes.
 
 ### 4. Scientific Critique
 
-Use `scientific-critical-thinking` to check:
+Explicitly use `scientific-critical-thinking` on the cache plus targeted TXT snippets when available. If unavailable, complete this stage in the current agent using the same role.
 
-- whether the central question is a real basic-science question
-- whether the research attribute matches the proposal content
-- whether aims answer the scientific question rather than list techniques
-- whether controls, sample sizes, validation paths, and endpoints are adequate
-- whether risk and alternatives are concrete enough
+Check whether the central question is a real basic-science question, whether the research attribute matches the content, whether aims answer the question rather than list techniques, whether controls/sample sizes/statistics/model systems/validation paths/endpoints are adequate, whether expected outcomes overreach the evidence, and whether risk alternatives are concrete.
+
+Save concise findings to `review/01_scientific_critique.txt`.
 
 ### 5. Targeted Literature Checks
 
-Use `literature-review` only for key claims:
+Explicitly use `literature-review` only for key claims when available. If unavailable, complete this stage in the current agent with targeted web/literature searches.
 
-- verify the most important novelty claims
-- identify obvious missing work or competing explanations
-- check whether the proposed gap is real and current
+Verify the most important novelty claims, identify missing work or competing explanations, and check whether the proposed gap is real and current. Avoid broad literature review unless explicitly requested.
+
+Save results to `review/02_literature_checks.txt`.
 
 ### 6. Stress Test
 
-Use `reviewer-2-simulator` after the cache and critique:
+Explicitly use `reviewer-2-simulator` after the cache and scientific critique when available. If unavailable, complete this stage in the current agent as a strict reviewer-2 role.
 
-- produce the strongest score-lowering arguments
-- focus on top issues that would matter to NSFC reviewers
-- distinguish revisable weaknesses from structural flaws
+Produce the strongest score-lowering arguments, focus on top issues that would matter to NSFC reviewers, and distinguish revisable weaknesses from structural flaws that should materially lower fundability.
+
+Save results to `review/03_reviewer2_stress_test.txt`.
 
 ### 7. Final Review
 
-Use `peer-review` to structure the final judgment and `scientific-writing` to polish it.
+Explicitly use `peer-review` to structure the final judgment and `scientific-writing` to polish it when available. If either is unavailable, complete the equivalent role in the current agent.
 
-Recommended sections:
+The final review must synthesize `nsfc_review_cache.txt`, `01_scientific_critique.txt`, `02_literature_checks.txt`, and `03_reviewer2_stress_test.txt`. Do not bypass these stage files when producing the final judgment.
 
-```text
-OVERALL ASSESSMENT
-STRENGTHS
-MAJOR CONCERNS
-MINOR CONCERNS
-FEASIBILITY AND RISK ASSESSMENT
-INNOVATION ASSESSMENT
-SUGGESTIONS FOR REVISION
-FUNDING RECOMMENDATION OR PRIORITY
-```
+The final review must be written in polished Chinese unless the user explicitly requests another language.
 
-For internal kill-mode review, add:
+If the workflow did not inspect critical non-text figures directly, explicitly include a manual-review reminder covering mechanism diagrams, technical workflow diagrams, experimental result figures, microscopy panels, gels, blots, plots, and other image-based evidence.
+
+For internal kill-mode review, include:
 
 ```text
 FATAL FLAWS OR DECISION-LEVEL DEFECTS
 ```
 
+Use this section to name the structural reasons the proposal should be rejected or deprioritized. Do not bury decision-level defects inside minor wording suggestions.
+
 ## Kill-Mode Decision Rule
 
-When the user asks for internal pre-screening, triage, or kill-mode review:
+When the user asks for internal triage, pre-screening, kill-mode review, or a stricter funding recommendation:
 
-- do not let general significance, available platforms, or decent preliminary basis outweigh structural flaws
-- treat the following as potentially fatal unless clearly neutralized by the proposal itself:
-  - the core novelty claim is weak or already occupied by prior work
-  - the main mechanistic chain is not designed to close with decisive experiments
-  - the proposal is overloaded, diffuse, or tries to do too many partially connected things
-  - a high-risk hypothesis is central but has weak direct preliminary support
-  - translational extensions materially dilute the core basic-science question
-- if two or more structural flaws remain after considering the proposal's own evidence, default to `not recommended for support`
-- let `scientific-critical-thinking` and `reviewer-2-simulator` drive fundability; `peer-review` organizes but should not soften the decision
+- do not let general significance, available platforms, or decent preliminary basis outweigh structural flaws;
+- treat weak novelty, unclosed mechanism chains, overloaded aims, central high-risk hypotheses with weak support, and translational extensions that dilute the basic-science question as potentially fatal unless the proposal clearly neutralizes them;
+- if two or more structural flaws remain after considering the proposal's own evidence, default to `not recommended for support` or an equivalent negative internal decision;
+- let `scientific-critical-thinking` and `reviewer-2-simulator` drive fundability; `peer-review` should organize the decision, not soften it;
+- use `scientific-writing` only to clarify and polish the judgment.
 
-## State Machine
+## Automation Pattern
 
 Use the workflow as a state machine:
 
@@ -187,24 +223,16 @@ Use the workflow as a state machine:
 6. `STRESS_TEST_READY`
 7. `FINAL_REVIEW_READY`
 
-At the start of every turn, identify the latest completed state from files in the review directory, then continue from the next state.
-
-## Manual Review Boundary
-
-If key claims depend on non-text materials that were not reliably converted into text, the final review must explicitly remind the user to inspect:
-
-- mechanism diagrams / model schematics
-- technical workflow diagrams
-- experimental result figures
-- microscopy panels, gels, blots, plots, and other image-based evidence
+At the start of every turn, identify the latest completed state from files in the review directory, then continue from the next state. Do not restart from the PDF once TXT exists.
 
 ## References
 
-- `references/scoring-rubric.txt`
-- `references/output-templates.txt`
+- Use `references/scoring-rubric.txt` only when a consistent rating standard is needed.
+- Use `references/output-templates.txt` only when drafting file outputs or final review text.
 
-## Integrity
+## Safety And Integrity
 
 - Do not generate a complete grant application for the applicant.
 - Do not fabricate policy requirements, citations, project details, or reviewer criteria.
-- If generative AI use is discussed, remind the user that NSFC 2026 requires human verification and truthful disclosure of AI-assisted content.
+- If generative AI use is discussed, remind the user that NSFC 2026 requires human verification and truthful disclosure/labeling of AI-assisted content.
+- Flag ethical, biosafety, sensitive-information, confidentiality, or non-text-evidence risks only when they affect scientific review or compliance.
