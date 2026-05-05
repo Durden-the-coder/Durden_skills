@@ -33,6 +33,21 @@ BLOCKED_WRITE_PARTS = {
 
 PAGE_RE = re.compile(r"^===== PAGE (\d+) =====$")
 
+HEADING_PATTERNS = {
+    "project_rationale": (
+        r"[（(]\s*一\s*[）)]\s*立\s*项\s*依\s*据",
+        r"一\s*[、.．]\s*立\s*项\s*依\s*据",
+    ),
+    "research_content": (
+        r"[（(]\s*二\s*[）)]\s*研\s*究\s*内\s*容",
+        r"二\s*[、.．]\s*研\s*究\s*内\s*容",
+    ),
+    "research_basis": (
+        r"[（(]\s*三\s*[）)]\s*研\s*究\s*基\s*础",
+        r"三\s*[、.．]\s*研\s*究\s*基\s*础",
+    ),
+}
+
 
 def is_blocked_workdir(path: Path) -> bool:
     parts = {p.lower() for p in path.resolve().parts}
@@ -218,6 +233,44 @@ def format_section(name: str, found: tuple[int, int, str] | None) -> str:
     return f"{name}: page {page_no}, char {pos}\n  {snippet}"
 
 
+def page_for_pos(full_text: str, pos: int) -> int:
+    page_no = 0
+    for match in re.finditer(r"^===== PAGE (\d+) =====$", full_text, flags=re.MULTILINE):
+        if match.start() > pos:
+            break
+        page_no = int(match.group(1))
+    return page_no or 1
+
+
+def line_around_pos(full_text: str, pos: int) -> str:
+    line_start = full_text.rfind("\n", 0, pos) + 1
+    line_end = full_text.find("\n", pos)
+    if line_end < 0:
+        line_end = len(full_text)
+    line = " ".join(full_text[line_start:line_end].split())
+    if line:
+        return line
+    snippet = " ".join(full_text[pos : pos + 80].split())
+    return snippet
+
+
+def find_heading_by_regex(
+    full_text: str,
+    patterns: tuple[str, ...],
+    start_pos: int = 0,
+) -> tuple[int, int, str] | None:
+    matches: list[re.Match[str]] = []
+    for pattern in patterns:
+        match = re.search(pattern, full_text[start_pos:], flags=re.IGNORECASE | re.MULTILINE)
+        if match:
+            matches.append(match)
+    if not matches:
+        return None
+    match = min(matches, key=lambda m: m.start())
+    pos = start_pos + match.start()
+    return page_for_pos(full_text, pos), pos, line_around_pos(full_text, pos)
+
+
 def find_title(pages: list[tuple[int, list[str]]], full_text: str) -> tuple[int, int, str] | None:
     title = find_line_with_candidates(pages, full_text, ("项目名称", "项目名称：", "项目名称:"), page_start=1)
     if title is not None:
@@ -238,23 +291,16 @@ def make_section_index(full_text: str) -> str:
         abstract_first = first_nonempty_after(pages, full_text, abstract)
         if abstract_first is not None:
             abstract = abstract_first
-    project_rationale = find_line_with_candidates(
-        pages,
+    project_rationale = find_heading_by_regex(full_text, HEADING_PATTERNS["project_rationale"])
+    research_content = find_heading_by_regex(
         full_text,
-        ("（一）立项依据", "(一)立项依据", "一、立项依据", "立项依据：", "立项依据"),
-        page_start=1,
+        HEADING_PATTERNS["research_content"],
+        start_pos=(project_rationale[1] + 1) if project_rationale else 0,
     )
-    research_content = find_line_with_candidates(
-        pages,
+    research_basis = find_heading_by_regex(
         full_text,
-        ("（二）研究内容", "(二)研究内容", "二、研究内容", "研究内容：", "研究内容"),
-        page_start=1,
-    )
-    research_basis = find_line_with_candidates(
-        pages,
-        full_text,
-        ("（三）研究基础", "(三)研究基础", "三、研究基础", "研究基础：", "研究基础"),
-        page_start=1,
+        HEADING_PATTERNS["research_basis"],
+        start_pos=(research_content[1] + 1) if research_content else 0,
     )
     lines = [
         format_section("title", title),
