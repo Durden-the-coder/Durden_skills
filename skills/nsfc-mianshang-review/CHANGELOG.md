@@ -6,6 +6,14 @@
 - `MINOR`：新增能力或明显的流程扩展
 - `PATCH`：bug 修复、文案修正、边界补充、小型路由修正
 
+## 0.4.4 - 2026-05-05
+
+- 规范化 `SKILL.md` frontmatter，补充 `allowed-tools: Read Write Edit Bash WebSearch`，减少 Claude Code 在 skill 内执行读写、脚本和检索时的重复 permission/action 提示。
+- 补充 `license: MIT license` 与 `metadata.skill-author`，使 skill 更接近常见学术 skills 的发布格式。
+- 精简 description，使 agent 更容易判断触发场景。
+- 新增 `When to Use This Skill` 和 `When Not to Use This Skill`，降低误触发和误用概率。
+- 新增 `Non-Interactive Execution Policy`，明确正常阶段边界不应反复等待用户输入 `go`。
+
 ## 0.4.3 - 2026-05-04
 
 - 将 workflow 明确升级为“优先显式调用 supporting skills，失败时角色 fallback”的 harness：
