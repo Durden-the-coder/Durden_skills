@@ -1,6 +1,6 @@
 ---
 name: nsfc-mianshang-review
-version: 0.4.4
+version: 0.4.5
 description: Review NSFC General Program grant proposals with a PDF-to-TXT, cache-first, staged workflow. Use for Chinese NSFC mian-shang proposal review, kill-mode internal triage, novelty checks, scientific critique, reviewer-2 stress testing, and polished Chinese final review. Explicitly routes supporting skills when available and falls back to equivalent in-agent roles when unavailable.
 allowed-tools: Read Write Edit Bash WebSearch
 license: MIT license
