@@ -1,12 +1,42 @@
 ---
 name: nsfc-mianshang-review
-version: 0.4.3
-description: Review National Natural Science Foundation of China NSFC General Program applications using the 2026 General Program outline. Use for NSFC general program, mian-shang project, grant proposal review, project rationale, research content, research basis, feasibility analysis, scientific value, innovation, feasibility, and formal review comments. Acts as a workflow harness for literature-review, scientific-critical-thinking, peer-review, reviewer-2-simulator, and scientific-writing: explicitly route to those skills when available, but fall back to equivalent in-agent roles when a runtime cannot invoke supporting skills. Minimizes token use through PDF-to-TXT extraction, structured cache files, and staged review.
+version: 0.4.4
+description: Review NSFC General Program grant proposals with a PDF-to-TXT, cache-first, staged workflow. Use for Chinese NSFC mian-shang proposal review, kill-mode internal triage, novelty checks, scientific critique, reviewer-2 stress testing, and polished Chinese final review. Explicitly routes supporting skills when available and falls back to equivalent in-agent roles when unavailable.
+allowed-tools: Read Write Edit Bash WebSearch
+license: MIT license
+metadata:
+    skill-author: Durden
 ---
 
 # NSFC General Program Review
 
 Use this skill as the workflow entry point for NSFC General Program proposal review. It coordinates PDF/TXT preparation, cache-first analysis, explicit supporting-skill routing when available, and role-equivalent fallback when supporting skills cannot be invoked.
+
+## When to Use This Skill
+
+Use this skill when:
+
+- reviewing NSFC General Program / 面上项目 proposals;
+- running internal pre-submission triage or kill-mode review;
+- extracting PDF proposal text into staged review artifacts;
+- evaluating novelty, scientific logic, feasibility, risk, and funding priority;
+- producing polished Chinese review comments from staged evidence files.
+
+## When Not to Use This Skill
+
+Do not use this skill to:
+
+- generate a full grant application for an applicant;
+- review unrelated journal manuscripts when NSFC proposal structure is irrelevant;
+- perform budget-only, attachment-only, or administrative-only checks;
+- inspect confidential non-text figures unless the user explicitly provides safe access;
+- bypass human expert review for final funding, ethics, biosafety, or confidentiality decisions.
+
+## Non-Interactive Execution Policy
+
+Continue through workflow stages automatically unless extraction fails, a required password is missing, the output directory is unsafe, or a safety/compliance issue appears. Do not stop at normal stage boundaries to ask the user to say `go`.
+
+If the runtime asks for tool permission, request the smallest useful action scope, preferably limited to reading proposal-derived TXT files, running `scripts/extract_nsfc_text.py`, and writing artifacts under the review directory.
 
 ## Non-Negotiable File Rules
 
