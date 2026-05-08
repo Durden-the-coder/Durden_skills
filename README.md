@@ -43,6 +43,23 @@ Main files:
 - `skills/nsfc-mianshang-review/README.md`
 - `skills/nsfc-mianshang-review/scripts/extract_nsfc_text.py`
 
+### `skills/nsfc-review-ranking`
+
+`nsfc-review-ranking` 用于对多个 `nsfc-mianshang-review` 已生成的评审结果进行横向排序、量化分档和对比总结。它不重新阅读原始 PDF，优先读取 `review/05_final_review.txt`、`review/06_submitted_review_comment.txt` 和 01-04 阶段文件，并根据 provenance header 区分 explicit skill call、fallback、protocol violation 和未完成 skeleton。
+
+主要能力：
+
+- 批量收集 `nsfc-review-*` 目录中的评审 TXT 产物
+- 输入质量与 provenance 审计
+- 提取单项目 source score 并给出横向校准分
+- 输出中文排序报告和会话摘要
+
+Main files:
+
+- `skills/nsfc-review-ranking/SKILL.md`
+- `skills/nsfc-review-ranking/scripts/collect_review_results.py`
+- `skills/nsfc-review-ranking/references/scoring-rubric.txt`
+
 ## 质量与边界
 
 当前 skill 经过人工核查，验证了输出结果具备较高质量，可以作为快速审阅本子的底稿，节约时间并帮助减少关键细节遗漏。不过它仍然不是正式评审系统，也不保证判断完全准确。

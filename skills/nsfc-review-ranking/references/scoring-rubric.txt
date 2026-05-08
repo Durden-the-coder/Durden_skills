@@ -1,0 +1,86 @@
+NSFC Review Ranking Rubric
+
+Purpose:
+This rubric is for cross-project ranking and calibration. It does not replace the
+per-project free-exploration or goal-oriented rubric used by nsfc-mianshang-review.
+
+Score fields:
+- source_score: score extracted from 05_final_review.txt, usually "Total weighted score: x/100".
+- calibrated_ranking_score: cross-batch score after comparing all proposals.
+
+Total calibrated score: 100.
+
+1. Scientific question and significance: 20
+- 18-20: clear basic-science question, strong significance, not merely technical extension.
+- 14-17: important topic, but question framing has some looseness.
+- 10-13: significance exists, but scientific question is generic or underdeveloped.
+- 0-9: weak question, mostly descriptive or application-driven without clear basic mechanism.
+
+2. Novelty and literature position: 25
+- 22-25: convincing novelty with current literature boundary.
+- 17-21: some novelty, but not fully decisive.
+- 11-16: novelty is incremental or partially occupied.
+- 0-10: novelty claim largely unsupported or already known.
+
+3. Mechanistic logic and aim coherence: 20
+- 18-20: aims close the central mechanism chain.
+- 14-17: mostly coherent, with one important gap.
+- 8-13: aims are related but diffuse or do not decisively test the hypothesis.
+- 0-7: logic chain is broken or mostly a technique list.
+
+4. Design rigor and feasibility: 20
+- 18-20: decisive experiments, proper controls, realistic endpoints.
+- 14-17: feasible but some design details are weak.
+- 8-13: major feasibility or rigor concerns.
+- 0-7: design cannot answer the question or is unrealistic.
+
+5. Preliminary basis and team fit: 10
+- 9-10: direct preliminary evidence and credible team fit.
+- 7-8: generally adequate.
+- 4-6: indirect or thin support.
+- 0-3: central claims lack preliminary support or team fit is doubtful.
+
+6. Writing focus and reviewability: 5
+- 5: clear, concise, easy to evaluate.
+- 3-4: generally readable with some ambiguity.
+- 1-2: diffuse, vague, hard to score.
+- 0: unreadable or internally inconsistent.
+
+Calibration guidance:
+- Use source_score as an anchor when it exists and is consistent with the final review text.
+- Adjust only after comparing all proposals in the batch.
+- Explain any calibrated_ranking_score shift of 5 points or more from source_score.
+- Use 1-3 point gaps for near ties.
+- Use 5-10 point gaps for clear qualitative differences.
+- Use 10+ point gaps for different fundability classes.
+- Avoid identical calibrated scores unless two proposals are genuinely indistinguishable.
+
+Penalty anchors:
+- subtract 8-15 for weak or already-occupied novelty claims.
+- subtract 8-15 for unclosed mechanism chains.
+- subtract 5-12 for overloaded aims or diffuse task structure.
+- subtract 5-10 for insufficient preliminary support for central high-risk claims.
+- subtract 3-8 for unclear feasibility, team fit, or manual-review uncertainty.
+- subtract 3-6 for poor writing, vague endpoints, or hard-to-review structure.
+
+Grade mapping:
+A+: 90-100, outstanding or clear priority for support.
+A: 85-89, recommended for support.
+A-: 80-84, fundable and can be considered for support.
+B+: 75-79, borderline but relatively strong.
+B: 70-74, borderline.
+B-: 65-69, borderline but relatively weak.
+C+: 55-64, not recommended, but with local strengths or salvageable elements.
+C: 45-54, not recommended.
+C-: 0-44, clearly not recommended; structural defects dominate.
+
+Use only A/B/C grades with +/- in final reports. Keep the 100-point score for ordering and calibration.
+
+Input provenance audit:
+A: 01-06 files are complete and major stage provenance is explicit.
+A-: 01-06 files are complete and fallback/nonstandard provenance is documented consistently.
+B: final review is substantive, but some stage files are missing, legacy, or have unknown provenance.
+C: final review is missing/thin, protocol-violating, or scoring depends heavily on partial stage files.
+D: required files are placeholders, missing, unreadable, or clearly incomplete.
+
+Input quality is a confidence label. It should not automatically lower the scientific score, but it should be reported and used to avoid overconfident fine ranking.
