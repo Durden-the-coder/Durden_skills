@@ -1,10 +1,100 @@
-# 更新日志
+﻿# 更新日志
 
 本文档记录 `nsfc-mianshang-review` 的重要变更。
 版本号采用轻量语义化规则：
 - `MAJOR`：不兼容的 workflow 或决策模型变化
 - `MINOR`：新增能力或明显的流程扩展
 - `PATCH`：bug 修复、文案修正、边界补充、小型路由修正
+
+## 0.5.7 - 2026-05-07
+
+- README 安装部分前置提醒：正式评审建议同时安装 `scientific-critical-thinking`、`literature-review`、`reviewer-2-simulator`、`peer-review` 和 `scientific-writing`。
+- 明确说明 fallback 能保证 workflow 不中断，但 supporting skills 显式调用通常能提升文献核查、严苛反驳和中文润色质量。
+- 补充每个 review 阶段对应的 supporting skill 关系，以及权限确认和 provenance 记录要求。
+
+## 0.5.6 - 2026-05-07
+
+- 批处理结束后新增 `_batch/review_prompts.txt`，把每个 READY 项目的新窗口/session 短 prompt 全部写入一个文件。
+- 控制台不再只显示第一个 task card，而是逐条打印所有可复制粘贴的审阅 prompt，减少手动打开任务卡查找路径的操作。
+- 修复 `batch_extract_and_qc.py` 生成任务卡时的中文提示乱码。
+
+## 0.5.5 - 2026-05-07
+
+- 将批量 workflow 收束为 deterministic preparation：批量阶段只做 PDF/TXT 提取、QC、目录初始化和任务卡生成，不再建议在同一 session 内批量审阅多个项目。
+- `batch_extract_and_qc.py` 新增 `_batch/review_tasks/*.md` 和 `_batch/review_task_index.tsv`，每个 READY 项目生成一个可复制到新窗口/session 的审阅任务卡。
+- 批处理结束后在控制台强提醒用户新建窗口/session，并给出首个 task card 路径和总任务数。
+
+## 0.5.4 - 2026-05-07
+
+- 基于 `0.5.3` 修复评分输出容易退化为通用 0-5 综合均分的问题。
+- `04_peer_review_draft.txt` 和 `05_final_review.txt` 必须使用 `scoring-rubric.txt` 中对应研究属性的精确维度和权重。
+- 评分输出必须包含 `raw score /5`、`weighted points`、`Total weighted score: x/100`、cap rules 和最终 A/B/C，不得合并、拆分、重命名或替换 rubric 维度。
+- `review_completion_qc.py` 增加对 `/100` 加权总分和评分表关键字段的检查。
+
+## 0.5.3 - 2026-05-07
+
+- 修复批量 workflow 的人工确认边界：单项目可自动跑完，但批量任务在 pilot review 完成后必须停止。
+- 明确规定：初始批量请求、pilot 前的 `go`、提取 QC 通过或 pilot 成功，均不能被解释为授权剩余项目批量评审。
+- 新增 `WAITING_FOR_HUMAN_APPROVAL` 状态，用于标记 pilot 后等待人工确认的批量队列。
+
+## 0.5.2 - 2026-05-07
+
+- 将 kill-mode 输出从宽松语义要求收束为固定标题 `KILL-MODE DECISION`。
+- 要求 `04_peer_review_draft.txt`、`05_final_review.txt` 和 `06_submitted_review_comment.txt` 均保留该段，避免最终润色或表格化评价意见阶段丢失严格判定。
+- 更新 review completion QC：若 `05_final_review.txt` 或 `06_submitted_review_comment.txt` 缺少 `KILL-MODE DECISION`，则标记为 `NEEDS_ATTENTION`。
+
+## 0.5.1 - 2026-05-07
+
+- 新增 `06_submitted_review_comment.txt`，作为基于 `05_final_review.txt` 的提交版评价意见文件。
+- `06_submitted_review_comment.txt` 按自由探索类/目标导向类评审表格组织内容，包括综合评价、资助意见、科学评价说明和三条具体评价意见。
+- 文件末尾强制保留人工审核提醒，覆盖非文本图件、技术路线图、机制模式图、实验图像、代表作、简历、伦理/生物安全/合规附件等。
+- `extract_nsfc_text.py --init-review-files`、`batch_extract_and_qc.py`、`review_completion_qc.py`、`README.md` 与 `output-templates.txt` 已同步新的 06 阶段。
+
+## 0.5.0 - 2026-05-07
+
+- 新增自由探索类/目标导向类研究属性匹配规则，包括证据链判断和 `none` / `mild` / `moderate` / `severe` 错配等级。
+- 重写 `references/scoring-rubric.txt`，加入 0-5 单项打分、两类项目差异化权重、伦理合规门槛、上限规则和 A/B/C 映射。
+- `04_peer_review_draft.txt` 和 `05_final_review.txt` 必须包含研究属性匹配、评分摘要、上限规则、伦理合规门槛和 Kill-mode 判定。
+- `review_completion_qc.py` 增加对研究属性判断、评分摘要和 cap-rule 检查的提示。
+- `references/output-templates.txt` 同步更新为 ASCII 模板，避免中文模板在部分 Windows/agent 环境中乱码。
+
+## 0.4.9 - 2026-05-07
+
+- 在 `SKILL.md` 顶部新增 `Execution Fast Path`，让 agent 先看到完整 01-05 执行主线；保留原有详细规则，不改变默认输出内容。
+- 将 `extract_nsfc_text.py --init-review-files` 生成的 01-05 skeleton 提示统一改为 ASCII 英文，避免 Windows 控制台或文件编码导致中文提示乱码。
+- 收束 `skill_call_result` 为封闭枚举：`success`、`not_installed`、`permission_blocked`、`runtime_not_supported`、`call_failed`、`not_attempted`。
+- 新增 `scripts/review_completion_qc.py`，把 extraction/preparation QC 与 review completion QC 分开。
+- 同步更新 `references/output-templates.txt`，适配 01-05 阶段结构。
+- 暂不改变自由探索类/目标导向类研究属性判断和 scoring 机制；这些内容需要先进一步论证。
+
+## 0.4.8 - 2026-05-07
+
+- 将 final review 拆成两个独立阶段文件：`04_peer_review_draft.txt` 与 `05_final_review.txt`。
+- `04_peer_review_draft.txt` 专门由 `peer-review` 生成结构化评审草稿，并默认包含 Kill-mode 判定。
+- `05_final_review.txt` 专门由 `scientific-writing` 润色最终中文评审，避免 agent 将写作润色“顺手合并”到 peer-review 阶段而跳过显式调用。
+- `scientific-writing` 被明确限制为改善表达、结构和中文质量，不得改变证据判断、资助建议或 Kill-mode 结论。
+- `extract_nsfc_text.py --init-review-files` 与批量 QC 已同步新的五阶段 review 文件结构。
+
+## 0.4.7 - 2026-05-06
+
+- `allowed-tools` 增加 `Skill`，使支持该字段的 agent 更容易执行显式 supporting skill 调用。
+- 收紧 supporting skill routing：每个阶段写入前必须先尝试显式调用对应 supporting skill；fallback 只能用于未安装、不可加载、权限阻断、运行时不支持或调用失败。
+- provenance header 新增 `attempted_skill_call` / `attempted_skill_calls` 和 `skill_call_result` / `skill_call_results` 字段。
+- 新增 `status: completed_with_protocol_violation`，用于标记 supporting skill 可见或已安装但未显式尝试调用的产物。
+- `extract_nsfc_text.py --init-review-files` 生成的 review 骨架已同步到 0.4.7 provenance 格式。
+- 批量 QC 增加 protocol violation 与新 provenance 字段检查。
+
+## 0.4.6 - 2026-05-06
+
+- 新增强制 provenance header 规范，要求每个阶段文件声明 workflow skill、版本、stage、supporting skill、execution mode、status、input/output 文件和 fallback reason。
+- `04_final_review.txt` 新增 final provenance header，必须声明 `synthesized_from` 的 stage 文件清单。
+- 明确 `explicit_skill_call` 只能在运行时确实显式调用 supporting skill 时使用；若由当前 agent 代替完成，必须标记为 `fallback_agent_role`。
+- `extract_nsfc_text.py --init-review-files` 生成的 review 阶段骨架文件现在预置 provenance header 模板。
+- 下游 `nsfc-review-ranking` 可据此更可靠地区分完整 workflow、fallback 产物、来源不明产物和未完成骨架。
+- 新增 `scripts/batch_extract_and_qc.py`，支持批量 PDF/TXT 提取、确定性质控、manifest、review queue 和 review status 文件生成。
+- 新增批量工作流：先批量 extraction/QC，再单本 pilot review，人工审核通过后进入批量 review。
+- 修复 PDF 抽取将 `中文摘要` 拆成纵向单字换行时，`01_section_index.txt` 误匹配后文项目摘要的问题。
+- 批量 QC 新增章节顺序检查，若 `中文摘要` 出现在 `立项依据` 之后会标记为异常。
 
 ## 0.4.5 - 2026-05-05
 

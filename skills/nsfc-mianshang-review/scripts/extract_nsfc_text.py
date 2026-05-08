@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 """Prepare TXT working files for NSFC grant review.
 
 This script is intentionally conservative:
@@ -34,17 +34,20 @@ BLOCKED_WRITE_PARTS = {
 PAGE_RE = re.compile(r"^===== PAGE (\d+) =====$")
 
 HEADING_PATTERNS = {
+    "chinese_abstract": (
+        r"\u4e2d\s*\u6587\s*\u6458\s*\u8981",
+    ),
     "project_rationale": (
-        r"[（(]\s*一\s*[）)]\s*立\s*项\s*依\s*据",
-        r"一\s*[、.．]\s*立\s*项\s*依\s*据",
+        r"[\uff08(]\s*\u4e00\s*[\uff09)]\s*\u7acb\s*\u9879\s*\u4f9d\s*\u636e",
+        r"\u4e00\s*[\u3001.\uff0e]\s*\u7acb\s*\u9879\s*\u4f9d\s*\u636e",
     ),
     "research_content": (
-        r"[（(]\s*二\s*[）)]\s*研\s*究\s*内\s*容",
-        r"二\s*[、.．]\s*研\s*究\s*内\s*容",
+        r"[\uff08(]\s*\u4e8c\s*[\uff09)]\s*\u7814\s*\u7a76\s*\u5185\s*\u5bb9",
+        r"\u4e8c\s*[\u3001.\uff0e]\s*\u7814\s*\u7a76\s*\u5185\s*\u5bb9",
     ),
     "research_basis": (
-        r"[（(]\s*三\s*[）)]\s*研\s*究\s*基\s*础",
-        r"三\s*[、.．]\s*研\s*究\s*基\s*础",
+        r"[\uff08(]\s*\u4e09\s*[\uff09)]\s*\u7814\s*\u7a76\s*\u57fa\s*\u7840",
+        r"\u4e09\s*[\u3001.\uff0e]\s*\u7814\s*\u7a76\s*\u57fa\s*\u7840",
     ),
 }
 
@@ -153,6 +156,8 @@ def split_pages(full_text: str) -> list[tuple[int, list[str]]]:
             current_lines.append(raw_line.rstrip())
     if current_page:
         pages.append((current_page, current_lines))
+    if not pages:
+        pages.append((1, [line.rstrip() for line in full_text.splitlines()]))
     return pages
 
 
@@ -160,7 +165,7 @@ def page_char_offset(full_text: str, page_no: int, line_text: str) -> int:
     page_marker = f"===== PAGE {page_no} ====="
     page_pos = full_text.find(page_marker)
     if page_pos < 0:
-        return -1
+        return full_text.find(line_text)
     return full_text.find(line_text, page_pos)
 
 
@@ -272,22 +277,42 @@ def find_heading_by_regex(
 
 
 def find_title(pages: list[tuple[int, list[str]]], full_text: str) -> tuple[int, int, str] | None:
-    title = find_line_with_candidates(pages, full_text, ("项目名称", "项目名称：", "项目名称:"), page_start=1)
+    title = find_line_with_candidates(
+        pages,
+        full_text,
+        ("\u9879\u76ee\u540d\u79f0", "\u9879\u76ee\u540d\u79f0\uff1a", "\u9879\u76ee\u540d\u79f0:"),
+        page_start=1,
+    )
     if title is not None:
         return title
     return find_first_nonempty_line(
         pages,
         full_text,
         page_start=1,
-        skip_candidates=("申请代码", "受理部门", "国家自然科学基金", "项目申请书", "基本信息"),
+        skip_candidates=(
+            "\u7533\u8bf7\u4ee3\u7801",
+            "\u53d7\u7406\u90e8\u95e8",
+            "\u56fd\u5bb6\u81ea\u7136\u79d1\u5b66\u57fa\u91d1",
+            "\u9879\u76ee\u7533\u8bf7\u4e66",
+            "\u57fa\u672c\u4fe1\u606f",
+        ),
     )
 
 
 def make_section_index(full_text: str) -> str:
     pages = split_pages(full_text)
     title = find_title(pages, full_text)
-    abstract = find_line_with_candidates(pages, full_text, ("中文摘要", "摘要"), page_start=1)
+    abstract = find_heading_by_regex(full_text, HEADING_PATTERNS["chinese_abstract"])
     if abstract is not None:
+        abstract = (abstract[0], abstract[1], "\u4e2d\u6587\u6458\u8981")
+    else:
+        abstract = find_line_with_candidates(
+            pages,
+            full_text,
+            ("\u4e2d\u6587\u6458\u8981", "\u6458\u8981"),
+            page_start=1,
+        )
+    if abstract is not None and abstract[2] != "\u4e2d\u6587\u6458\u8981":
         abstract_first = first_nonempty_after(pages, full_text, abstract)
         if abstract_first is not None:
             abstract = abstract_first
@@ -375,55 +400,148 @@ CANDIDATE MINOR CONCERNS
 def review_stage_skeletons() -> dict[str, str]:
     return {
         "01_scientific_critique.txt": (
-            "科学性批判分析\n\n"
-            "角色路由：优先显式调用 scientific-critical-thinking；如果运行时无法调用该 skill，"
-            "则由当前 agent 按 scientific-critical-thinking 的角色完成本阶段。\n\n"
-            "待补充：\n"
-            "1. 核心科学问题是否成立\n"
-            "2. 中心假说或逻辑链是否闭环\n"
-            "3. 研究设计、统计、验证路径是否充分\n"
-            "4. 主要科学风险与替代方案\n"
+            """NSFC_REVIEW_STAGE_PROVENANCE
+workflow_skill: nsfc-mianshang-review
+workflow_version: 0.5.6
+stage: scientific_critique
+supporting_skill: scientific-critical-thinking
+attempted_skill_call: no
+skill_call_result: not_attempted
+execution_mode: unavailable_not_attempted
+status: pending
+input_files:
+- extracted/00_full_text.txt
+- review/nsfc_review_cache.txt
+output_file: review/01_scientific_critique.txt
+generated_at: unknown
+fallback_reason: not yet run
+
+Scientific Critique
+
+Role routing: first attempt an explicit scientific-critical-thinking skill call. If unavailable, complete this stage in the current agent and record fallback provenance.
+
+To be completed: core scientific question, hypothesis coherence, design rigor, statistics, feasibility, risks, alternatives, and decision-level methodological concerns.
+"""
         ),
         "02_literature_checks.txt": (
-            "定向文献核查\n\n"
-            "角色路由：优先显式调用 literature-review；如果运行时无法调用该 skill，"
-            "则由当前 agent 使用网络检索或可用文献工具完成定向 novelty 核查。\n\n"
-            "待补充：\n"
-            "1. novelty 的真实边界\n"
-            "2. 关键文献是否已覆盖该方向\n"
-            "3. 关键 claim 是否存在公开证据冲突或缺口\n"
+            """NSFC_REVIEW_STAGE_PROVENANCE
+workflow_skill: nsfc-mianshang-review
+workflow_version: 0.5.6
+stage: literature_checks
+supporting_skill: literature-review
+attempted_skill_call: no
+skill_call_result: not_attempted
+execution_mode: unavailable_not_attempted
+status: pending
+input_files:
+- extracted/00_full_text.txt
+- review/nsfc_review_cache.txt
+output_file: review/02_literature_checks.txt
+generated_at: unknown
+fallback_reason: not yet run
+
+Targeted Literature Checks
+
+Role routing: first attempt an explicit literature-review skill call. If unavailable, use available web/PubMed/Crossref searches or concise manual query synthesis and record fallback provenance.
+
+To be completed: key novelty claims, closest prior work, claim conflicts, field saturation, and evidence-backed novelty boundary.
+"""
         ),
         "03_reviewer2_stress_test.txt": (
-            "Reviewer 2 压力测试\n\n"
-            "角色路由：优先显式调用 reviewer-2-simulator；如果运行时无法调用该 skill，"
-            "则由当前 agent 以严格审稿人角色完成压力测试。\n\n"
-            "待补充：\n"
-            "1. 最可能导致扣分或否决的结构性缺陷\n"
-            "2. 哪些问题属于可修改弱点，哪些属于决策级缺陷\n"
-            "3. kill-mode 下的致命问题清单\n"
+            """NSFC_REVIEW_STAGE_PROVENANCE
+workflow_skill: nsfc-mianshang-review
+workflow_version: 0.5.6
+stage: reviewer2_stress_test
+supporting_skill: reviewer-2-simulator
+attempted_skill_call: no
+skill_call_result: not_attempted
+execution_mode: unavailable_not_attempted
+status: pending
+input_files:
+- extracted/00_full_text.txt
+- review/nsfc_review_cache.txt
+output_file: review/03_reviewer2_stress_test.txt
+generated_at: unknown
+fallback_reason: not yet run
+
+Reviewer 2 Stress Test
+
+Role routing: first attempt an explicit reviewer-2-simulator skill call. If unavailable, complete this stage in the current agent as a strict reviewer-2 role and record fallback provenance.
+
+To be completed: strongest score-lowering objections, fatal or structural flaws, fixable weaknesses, and Kill-mode implications.
+"""
         ),
-        "04_final_review.txt": (
-            "总体评价\n\n"
-            "角色路由：优先显式调用 peer-review 组织评审结构，并调用 scientific-writing "
-            "润色中文表达；如果运行时无法调用这些 skills，则由当前 agent 按相同角色完成。\n\n"
-            "待补充。\n\n"
-            "优势\n\n"
-            "待补充。\n\n"
-            "创新性评价\n\n"
-            "待补充。\n\n"
-            "致命缺陷或决策级问题\n\n"
-            "待补充。\n\n"
-            "次要问题\n\n"
-            "待补充。\n\n"
-            "可行性与风险评估\n\n"
-            "待补充。\n\n"
-            "修改建议\n\n"
-            "待补充。\n\n"
-            "人工审核提醒\n\n"
-            "待补充：工作条件、简历/代表作、无法可靠转成文本的模式图、技术路线图、"
-            "实验结果图、显微图、凝胶图、免疫印迹和统计图等人工审核边界。\n\n"
-            "资助判断\n\n"
-            "待补充。\n"
+        "04_peer_review_draft.txt": (
+            """NSFC_REVIEW_STAGE_PROVENANCE
+workflow_skill: nsfc-mianshang-review
+workflow_version: 0.5.6
+stage: peer_review_draft
+supporting_skill: peer-review
+attempted_skill_call: no
+skill_call_result: not_attempted
+execution_mode: unavailable_not_attempted
+status: pending
+input_files:
+- review/nsfc_review_cache.txt
+- review/01_scientific_critique.txt
+- review/02_literature_checks.txt
+- review/03_reviewer2_stress_test.txt
+output_file: review/04_peer_review_draft.txt
+generated_at: unknown
+fallback_reason: not yet run
+
+Peer Review Draft
+
+Role routing: first attempt an explicit peer-review skill call to organize the grant-style judgment. If unavailable, complete this stage in the current agent and record fallback provenance.
+
+To be completed: overall judgment, strengths, novelty, major concerns, minor concerns, feasibility, manual-review boundary, funding judgment, and an exact KILL-MODE DECISION section.
+"""
+        ),
+        "05_final_review.txt": (
+            """NSFC_REVIEW_STAGE_PROVENANCE
+workflow_skill: nsfc-mianshang-review
+workflow_version: 0.5.6
+stage: final_scientific_writing
+supporting_skill: scientific-writing
+attempted_skill_call: no
+skill_call_result: not_attempted
+execution_mode: unavailable_not_attempted
+status: pending
+input_files:
+- review/04_peer_review_draft.txt
+output_file: review/05_final_review.txt
+generated_at: unknown
+fallback_reason: not yet run
+
+Final Chinese Review
+
+Role routing: first attempt an explicit scientific-writing skill call to polish 04_peer_review_draft.txt into a professional Chinese final review. scientific-writing must not change the evidence judgment or soften the Kill-mode decision.
+
+To be completed: polished Chinese final review with an exact KILL-MODE DECISION section and manual-review reminders.
+"""
+        ),
+        "06_submitted_review_comment.txt": (
+            """NSFC_REVIEW_STAGE_PROVENANCE
+workflow_skill: nsfc-mianshang-review
+workflow_version: 0.5.6
+stage: submitted_review_comment
+supporting_skill: scientific-writing
+attempted_skill_call: no
+skill_call_result: not_attempted
+execution_mode: unavailable_not_attempted
+status: pending
+input_files:
+- review/05_final_review.txt
+output_file: review/06_submitted_review_comment.txt
+generated_at: unknown
+fallback_reason: not yet run
+
+Submitted Review Comment
+
+Role routing: first attempt an explicit scientific-writing skill call to convert 05_final_review.txt into concise NSFC form-style review comments. Preserve the evidence judgment, A/B/C grade, funding opinion, cap-rule effects, and Kill-mode conclusion.
+
+To be completed: form-ready comments with comprehensive evaluation, funding opinion, an exact KILL-MODE DECISION section, scientific evaluation description, specific review comments for the selected research attribute, and a manual-review reminder.
+"""
         ),
     }
 
@@ -584,3 +702,5 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+

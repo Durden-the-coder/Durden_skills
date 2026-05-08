@@ -1,65 +1,187 @@
-NSFC GENERAL PROGRAM REVIEW RUBRIC
+NSFC GENERAL PROGRAM SCORING RUBRIC
 
-Use this reference only when consistent rating standards are needed.
+Use this file to keep review judgments consistent across proposals. It is not an automatic scoring machine. Final grades must combine weighted scoring, cap rules, ethics/compliance gates, and strict internal triage.
 
-SCIENTIFIC SIGNIFICANCE
-High:
-- The central scientific question is clear, important, and basic-research oriented.
-- The proposal addresses a genuine unresolved mechanism, principle, or conceptual gap.
-- The field context is accurate and current.
+GENERAL 0-5 SCALE
 
-Medium:
-- The topic is relevant, but the scientific question is broad, partly derivative, or not sharply framed.
-- The research gap exists but needs clearer positioning.
+5: Excellent. Strong evidence, clear logic, and no substantive weakness in this dimension.
+4: Good. Mostly convincing, with minor issues that do not materially affect competitiveness.
+3: Moderate. The dimension is present but needs clear strengthening.
+2: Weak. Problems materially lower funding priority.
+1: Very weak. The dimension barely supports the proposal.
+0: Missing, incorrect, contradicted by evidence, or irrelevant to the proposal's core claim.
 
-Low:
-- The proposal is mainly technical, descriptive, or application-driven.
-- The scientific question is vague, already answered, or not connected to the proposed work.
+ETHICS AND COMPLIANCE GATE
 
-INNOVATION
-High:
-- The proposal introduces a genuinely new concept, mechanism, model, method, or research angle.
-- The innovation claim is supported by literature gap and preliminary evidence.
+Do not include ethics/compliance in the 100-point weighted score. Treat it as a gate:
 
-Medium:
-- The work has incremental novelty, but the main framework resembles existing studies.
-- Novelty depends heavily on context, cohort, model system, or technical combination.
+PASS: No obvious ethics, compliance, confidentiality, biosafety, AI-disclosure, or sensitive-information issue.
+CONCERN: Requires human checking but does not automatically block review.
+BLOCKER: Serious ethics/compliance/confidentiality risk. Stop normal scoring and request human clarification.
 
-Low:
-- The proposal repackages known methods or routine extensions.
-- Novelty claims are overstated or not linked to a scientific advance.
+RESEARCH ATTRIBUTE CHECK
 
-RESEARCH CONTENT AND APPROACH
-High:
-- Aims are coherent and mutually supportive.
-- Methods directly test the core hypothesis.
-- Controls, models, statistics, validation, and endpoints are appropriate.
+Record the applicant-selected attribute:
+- free_exploration
+- goal_oriented
+- unclear
 
-Medium:
-- The overall design is plausible, but key links are underdeveloped.
-- Some controls, validation steps, or statistical details need strengthening.
+Then judge whether the proposal content matches the selected attribute.
 
-Low:
-- Aims are disconnected or mostly technical.
-- The technical route cannot answer the scientific question.
-- Critical controls, validation, or feasibility steps are missing.
+FREE EXPLORATION CHAIN
 
-RESEARCH BASIS AND FEASIBILITY
-High:
-- Preliminary data and prior work strongly support the proposed direction.
-- Team expertise and conditions match the required methods.
-- Risks and alternatives are concrete and credible.
+Academic frontier or unknown phenomenon
+-> basic scientific question
+-> original hypothesis/mechanism/principle
+-> generalizable new knowledge
 
-Medium:
-- The team has relevant basis, but key preliminary support or risk handling is incomplete.
+GOAL-ORIENTED BASIC RESEARCH CHAIN
 
-Low:
-- Feasibility relies on unsupported assumptions.
-- Key resources, expertise, preliminary data, or alternatives are missing.
+Economic/social/national/clinical need
+-> key bottleneck
+-> underlying unknown basic scientific problem
+-> mechanistic research in this proposal
+-> generalizable new knowledge
 
-REVIEW IMPACT
-Major concern:
-- A flaw that may affect funding priority, scientific validity, feasibility, or innovation.
+ATTRIBUTE MISMATCH LEVELS
 
-Minor concern:
-- A fixable issue that improves clarity, completeness, or presentation but does not change the main judgment.
+None: selected attribute and proposal logic are aligned.
+Mild: wording is imperfect, but the scientific logic still supports the selected attribute.
+Moderate: label and main logic are visibly misaligned, but a scientific question still exists. Maximum grade: B.
+Severe: the selected attribute is central to the proposal's logic but the attribute chain fails. Treat as a decision-level defect; usually grade C.
+
+FREE EXPLORATION RUBRIC
+
+Weights:
+- Scientific question and originality: 30
+- Literature novelty and field positioning: 20
+- Mechanistic hypothesis and logical closure: 20
+- Technical route and key experimental design: 15
+- Preliminary basis, feasibility, and risk control: 15
+
+1. Scientific question and originality (30)
+5: Highly focused basic scientific question; clear unknown mechanism/principle/concept; strong originality and frontier value.
+4: Clear scientific question with meaningful originality, but the boundary can be sharpened.
+3: Valid question, but somewhat conventional or incremental; may rely on a new object/model/context.
+2: Vague scientific question; reads like a task list; weak originality.
+1: No clear scientific question; mostly "study gene/pathway/model X".
+0: Question is invalid or already clearly answered.
+
+2. Literature novelty and field positioning (20)
+5: Key literature is accurately covered; the unresolved gap is well demonstrated.
+4: Literature coverage is solid; novelty mostly stands, with limited missing context.
+3: Some novelty exists, but close prior work requires clearer differentiation.
+2: Field positioning is weak; obvious related work is missing; novelty boundary is unclear.
+1: Core innovation is largely covered by prior literature.
+0: Literature directly undermines the novelty claim.
+
+3. Mechanistic hypothesis and logical closure (20)
+5: Central hypothesis is clear, causal chain is complete, and key experiments can close the mechanism.
+4: Mechanistic chain is mostly convincing, with a few links needing strengthening.
+3: Hypothesis is plausible but broad; causal links contain jumps.
+2: Multiple mechanism directions are listed without a main line; decisive causal tests are missing.
+1: Mechanism is post hoc or descriptive; no falsifiable hypothesis.
+0: Mechanistic hypothesis conflicts with evidence or cannot be tested by the proposal.
+
+4. Technical route and key experimental design (15)
+5: Methods directly answer the scientific question; models, controls, statistics, validation, and endpoints are strong.
+4: Design is generally appropriate; minor details need improvement.
+3: Feasible but conventional; key validation is not decisive.
+2: Experimental pile-up; some methods do not answer the core question.
+1: Key experiments are missing or disconnected from the question.
+0: Technical route cannot test the central hypothesis.
+
+5. Preliminary basis, feasibility, and risk control (15)
+5: Strong preliminary data; team/platform/methods fit the project; risks and alternatives are concrete.
+4: Good basis; major risks appear controllable.
+3: Some basis exists, but key preliminary evidence or alternatives are incomplete.
+2: Weak basis; workload or risk is high; alternatives are generic.
+1: Depends on unverified assumptions or missing capability.
+0: Lacks key conditions or capability needed to execute.
+
+GOAL-ORIENTED BASIC RESEARCH RUBRIC
+
+Weights:
+- Need-bottleneck-basic-science match: 25
+- Mechanistic chain and bottleneck explanatory power: 25
+- Basic-research nature and translational boundary: 15
+- Difference from literature/existing solutions and innovation: 15
+- Technical route and key validation design: 10
+- Preliminary basis, feasibility, and risk control: 10
+
+1. Need-bottleneck-basic-science match (25)
+5: Need is specific and important; bottleneck is clear; underlying basic scientific question is explicit and direct.
+4: Need and bottleneck are mostly clear; scientific question matches well.
+3: Need is valid, but connection to the basic scientific question needs strengthening.
+2: Need is slogan-like; bottleneck or scientific question is vague.
+1: Need appears attached after the fact; weak relation to the research question.
+0: No real goal-oriented chain or not goal-oriented basic research.
+
+2. Mechanistic chain and bottleneck explanatory power (25)
+5: Mechanistic research directly explains the target bottleneck; causal chain is closable and explanatory.
+4: Mechanistic chain is mostly convincing; a few key nodes need strengthening.
+3: Hypothesis is plausible, but explanatory power for the bottleneck is limited.
+2: Visible jump between mechanism and target bottleneck.
+1: Mechanism work is scattered and does not answer the bottleneck.
+0: Mechanistic chain fails or the project is mainly phenotype/efficacy observation.
+
+3. Basic-research nature and translational boundary (15)
+5: Clearly basic research; application context is a driver, but core output is mechanism/principle/law.
+4: Basic-research nature is clear, with some translational extension.
+3: Basic research and application validation are mixed; boundary needs tightening.
+2: Large share is drug efficacy, product, protocol, process, or scheme validation.
+1: Mostly applied development with weak basic scientific content.
+0: Not basic research.
+
+4. Difference from literature/existing solutions and innovation (15)
+5: Clearly identifies why existing solutions do not answer the basic bottleneck; innovation is strong.
+4: Difference is mostly clear; some recent literature or solution comparison should be added.
+3: Some difference exists, but innovation is incremental.
+2: Similar mechanisms/solutions exist; difference is unclear.
+1: Main idea is largely covered by existing work.
+0: Literature or existing solutions directly negate the innovation claim.
+
+5. Technical route and key validation design (10)
+5: Design directly validates the need-bottleneck-mechanism chain; key controls are strong.
+4: Route is reasonable, with some key validation to strengthen.
+3: Feasible but not decisive for the bottleneck.
+2: Methods are scattered; validation chain does not close.
+1: Key validation is missing.
+0: Route cannot answer the goal-oriented scientific question.
+
+6. Preliminary basis, feasibility, and risk control (10)
+5: Preliminary data, samples/models, team capability, and risk plans are strong.
+4: Good basis; risk is mostly controllable.
+3: Some basis exists, but key translational condition or preliminary evidence is insufficient.
+2: Weak basis; execution risk is high.
+1: Key conditions are absent.
+0: Cannot support implementation.
+
+WEIGHTED SCORE
+
+For each dimension:
+weighted_points = raw_score / 5 * weight
+
+Total score is the sum of weighted_points. Use this total only as one input to final grade.
+
+CAP RULES
+
+Core scientific question unclear: maximum B.
+Novelty substantially covered by literature: maximum B; severe cases C.
+Technical route cannot answer the core question: maximum C.
+Preliminary basis cannot support key experiments: maximum B or C depending on severity.
+Goal-oriented chain broken: maximum B; severe cases C.
+Applied development rather than basic research: maximum C.
+Ethics/compliance BLOCKER: stop normal scoring and request human handling.
+Two or more structural flaws: default C.
+One critical decision-level defect: usually C.
+Moderate attribute mismatch: maximum B.
+Severe attribute mismatch: usually C.
+
+ABC GRADE MAPPING
+
+A: Weighted score >= 80, no decision-level defect, no severe cap rule, and strict internal triage does not trigger C.
+B: Weighted score 65-79, or meaningful but fixable concerns, or cap rules limit the proposal to B.
+C: Weighted score < 65, or any cap rule triggers C, or strict internal triage finds two or more structural flaws or one critical decision-level defect.
+
+Do not use plus/minus grades unless the user explicitly asks for within-grade ranking. For standard NSFC-style review, output A/B/C only.

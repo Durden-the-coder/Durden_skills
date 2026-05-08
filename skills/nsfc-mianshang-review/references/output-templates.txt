@@ -1,5 +1,7 @@
 NSFC REVIEW OUTPUT TEMPLATES
 
+Use these templates only when drafting or checking workflow artifacts. Keep provenance headers above the body of each file.
+
 CACHE FILE
 
 NSFC GENERAL PROGRAM REVIEW CACHE
@@ -12,6 +14,12 @@ Duration:
 Collaborators:
 
 CORE SCIENTIFIC QUESTION
+
+RESEARCH ATTRIBUTE MATCH
+Applicant-selected attribute:
+Workflow-inferred attribute:
+Mismatch level:
+Evidence chain:
 
 CENTRAL HYPOTHESIS OR MAIN LOGIC
 
@@ -38,9 +46,57 @@ CANDIDATE MAJOR CONCERNS
 CANDIDATE MINOR CONCERNS
 
 
-FINAL REVIEW
+01 SCIENTIFIC CRITIQUE
+
+SCIENTIFIC QUESTION AND HYPOTHESIS
+
+CAUSAL LOGIC AND MECHANISTIC CLOSURE
+
+EXPERIMENTAL DESIGN AND CONTROLS
+
+STATISTICS, SAMPLE SIZE, AND VALIDATION
+
+FEASIBILITY AND RISK
+
+DECISION-LEVEL SCIENTIFIC CONCERNS
+
+
+02 LITERATURE CHECKS
+
+SEARCH STRATEGY
+
+KEY NOVELTY CLAIMS CHECKED
+
+CLOSEST PRIOR WORK
+
+CLAIM CONFLICTS OR FIELD SATURATION
+
+NOVELTY BOUNDARY
+
+
+03 REVIEWER-2 STRESS TEST
+
+STRONGEST SCORE-LOWERING OBJECTIONS
+
+FATAL OR STRUCTURAL FLAWS
+
+FIXABLE WEAKNESSES
+
+LIKELY REVIEWER QUESTIONS
+
+KILL-MODE IMPLICATIONS
+
+
+04 PEER REVIEW DRAFT
 
 OVERALL ASSESSMENT
+
+RESEARCH ATTRIBUTE MATCH
+- Applicant-selected attribute:
+- Workflow-inferred attribute:
+- Mismatch level:
+- Evidence chain:
+- Impact on grade:
 
 STRENGTHS
 
@@ -57,6 +113,111 @@ FEASIBILITY AND RISK ASSESSMENT
 
 INNOVATION ASSESSMENT
 
-SUGGESTIONS FOR REVISION
+SCORING SUMMARY AND CAP RULES
+- Rubric used: free_exploration / goal_oriented
+- Use exact dimension names and weights from references/scoring-rubric.txt.
+- Do not rename, merge, split, replace, or omit rubric dimensions.
+
+| Dimension exactly from scoring-rubric.txt | Weight | Raw score /5 | Weighted points | Evidence basis |
+|---|---:|---:|---:|---|
+| ... | ... | ... | ... | ... |
+
+- Total weighted score: <x>/100
+- Grade before cap rules:
+- Cap rules triggered:
+- Final A/B/C grade:
+- Funding opinion:
+- Rationale:
+
+ETHICS AND COMPLIANCE GATE
+- Status: PASS / CONCERN / BLOCKER
+- Human checks needed:
+
+MANUAL-REVIEW BOUNDARY
+
+KILL-MODE DECISION
+- Decision-level defects:
+- Number of structural flaws:
+- Strict internal recommendation:
 
 FUNDING RECOMMENDATION OR PRIORITY
+
+
+05 FINAL REVIEW
+
+Use polished Chinese by default. Preserve the evidence judgment, funding recommendation, A/B/C grade, cap-rule effects, and Kill-mode decision from `04_peer_review_draft.txt`.
+
+Suggested section order:
+
+OVERALL ASSESSMENT
+
+RESEARCH ATTRIBUTE MATCH
+
+MAIN STRENGTHS
+
+INNOVATION ASSESSMENT
+
+MAJOR CONCERNS
+
+MINOR CONCERNS
+
+FEASIBILITY AND RISK
+
+SCORING SUMMARY AND CAP RULES
+
+Rubric used: free_exploration / goal_oriented
+
+| Dimension exactly from scoring-rubric.txt | Weight | Raw score /5 | Weighted points | Evidence basis |
+|---|---:|---:|---:|---|
+| ... | ... | ... | ... | ... |
+
+Total weighted score: <x>/100
+Grade before cap rules:
+Cap rules triggered:
+Final grade after cap rules:
+Funding opinion:
+
+ETHICS AND COMPLIANCE GATE
+
+MANUAL-REVIEW REMINDER
+
+KILL-MODE DECISION
+
+FUNDING RECOMMENDATION
+
+
+06 SUBMITTED REVIEW COMMENT
+
+Use this file for form-ready comments that can be copied into the NSFC review system. Keep it concise and polished in Chinese when generating the actual review.
+
+COMPREHENSIVE EVALUATION
+- Selected option: A excellent / B good / C medium / D poor
+- Basis:
+
+FUNDING OPINION
+- Selected option: A priority funding / B fundable / C not funded
+- Basis:
+
+KILL-MODE DECISION
+- Decision-level defects:
+- Number of structural flaws:
+- Cap-rule effect:
+- Strict internal recommendation:
+
+SCIENTIFIC EVALUATION DESCRIPTION
+- Attribute definition used:
+
+SPECIFIC REVIEW COMMENTS
+
+For free_exploration:
+1. Innovation of the research idea and reasoning:
+2. Value of the scientific question and contribution to the frontier:
+3. Applicant innovation potential, feasibility, and improvement suggestions:
+
+For goal_oriented:
+1. Whether the project addresses a basic scientific question behind economic/social/national needs, with reasoning:
+2. Innovation of the scientific question and scientific value of expected results:
+3. Applicant innovation potential, feasibility, and improvement suggestions:
+
+MANUAL REVIEW REMINDER
+- Non-text figures, mechanism schematics, technical route diagrams, experimental images, representative papers, CV details, ethics/biosafety/compliance materials, and attachments require human review before submission.
