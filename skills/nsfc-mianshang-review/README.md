@@ -80,7 +80,7 @@ scientific-writing
 示例：
 
 ```text
-使用 nsfc-mianshang-review 的 kill-mode 评审：
+使用 nsfc-mianshang-review 评审：
 D:\AI projects\claude_code\2026国自然评审\项目书\proposal.pdf
 PDF 密码：your-password
 ```
