@@ -14,6 +14,7 @@
 - 增加默认文件名格式：`ai-news-72h_<YYYY-MM-DD>_<model-name>.md`。
 - 要求正文开头记录实际生成模型。
 - 同步更新 README 和 `agents/openai.yaml`。
+- 修复 gents/openai.yaml 中中文界面元数据的 UTF-8 编码。
 
 ### Validation
 
