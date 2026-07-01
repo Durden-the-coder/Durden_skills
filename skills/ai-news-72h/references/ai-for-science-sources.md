@@ -39,7 +39,18 @@
 - Nature Biotechnology
 - Nature Methods
 - Nature Genetics
+- Nature Communications
+- Science Advances
+- PNAS（Proceedings of the National Academy of Sciences）
+- Cell Systems
+- Patterns（Cell Press AI 期刊）
 - Cancer Cell
+- The New England Journal of Medicine
+- NEJM AI
+- The Lancet
+- The Lancet Digital Health
+- Nature Machine Intelligence
+- Science Translational Medicine
 
 只纳入窗口内新在线发表、且 AI 或机器学习构成核心方法或主要贡献的原创研究。使用 `Published online` 日期判断，不使用卷期日期、网页更新时间或数据库收录日期。
 
@@ -186,7 +197,7 @@
 
 ### 来源与状态
 
-- [ ] 已检查 Nature、Science、Cell、Nature Medicine、Nature Biotechnology、Nature Methods、Nature Genetics 和 Cancer Cell。
+- [ ] 已检查 Nature、Science、Cell、Nature Medicine、Nature Biotechnology、Nature Methods、Nature Genetics、Nature Communications、Science Advances、PNAS、Cell Systems、Patterns、Cancer Cell、The New England Journal of Medicine、NEJM AI、The Lancet、The Lancet Digital Health、Nature Machine Intelligence 和 Science Translational Medicine。
 - [ ] 已分别检查 OpenAI、Anthropic、Google Research/DeepMind 及其他指定实验室。
 - [ ] 没有使用 PubMed 作为发现或纳入来源。
 - [ ] 预印本已标注未经同行评议。
