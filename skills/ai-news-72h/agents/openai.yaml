@@ -1,4 +1,4 @@
 interface:
-  display_name: "最近72小时 AI 新闻简报"
-  short_description: "检索、核验并撰写最近72小时全球 AI 新闻与 AI 科学研究简报"
-  default_prompt: "检索最近72小时全球 AI 新闻，覆盖模型、Agent、硬件、软件、应用和 AI 科学研究，并提供摘要、第三方重要性评价、来源链接和全文总结。"
+  display_name: "���72Сʱ AI ���ż�"
+  short_description: "���������鲢׫д���72Сʱȫ�� AI ������ AI ��ѧ�о���"
+  default_prompt: "使用 fresh subagent 独立检索最近72小时全球 AI 新闻，覆盖模型、Agent、硬件、软件、应用和 AI 科学研究，并将结果写入文件名包含实际执行模型名称的 Markdown 文件。"
