@@ -16,6 +16,31 @@ description: 检索、核验并撰写最近72小时全球AI新闻简报，覆盖
 
 不得为了凑数量纳入窗口外旧闻，或把推测写成已经发生的事实。
 
+## 隔离执行
+
+每次运行本 Skill 必须由一个全新 subagent 独立完成检索、筛选、验证和 Markdown 文件写入，避免继承当前会话中的候选新闻、判断或结论。
+
+使用以下无递归协议：
+
+1. 如果任务输入中没有 `execution_role: isolated_worker`，当前 agent 是协调者：
+   - 创建一个 fresh subagent，设置 `fork_context=false`；
+   - 仅传递当前用户请求、当前绝对时间与时区、输出目录、执行模型标识，以及本 Skill 和所需 reference 文件；
+   - 在任务中加入 `execution_role: isolated_worker`；
+   - 不向 subagent 传递此前对话、既有候选条目、旧简报或当前 agent 的研究判断；
+   - 不在当前 agent 中重复执行新闻检索，仅在 subagent 完成后检查输出文件是否存在、命名是否正确、验证清单是否完成。
+2. 如果任务输入中已经包含 `execution_role: isolated_worker`，当前 agent 是隔离执行者：直接执行完整工作流，不再创建嵌套 subagent。
+3. 如果运行环境不支持 subagent，明确报告无法满足隔离执行要求，不得静默回退到当前会话直接运行。
+
+## 输出文件命名
+
+最终结果必须写入 Markdown 文件。文件名在 `.md` 前加入实际用于生成该文件的 AI 模型名称：
+
+- 用户指定基础文件名时：`<基础文件名>_<model-name>.md`；
+- 用户未指定时：`ai-news-72h_<YYYY-MM-DD>_<model-name>.md`；
+- 示例：`ai-news-72h_2026-07-01_deepseek-V4-pro.md`。
+
+`model-name` 必须使用隔离执行 subagent 的实际模型标识，不得使用协调者模型名，也不得猜测营销名称。将空格、斜杠、反斜杠及文件系统不允许的字符替换为连字符，保留字母、数字、点、下划线和连字符。输出正文开头同时记录 `**生成模型：<model-name>**`。
+
 ## 工作流
 
 ### 1. 确定时间窗
@@ -105,6 +130,7 @@ AI for Science 预印本的证据要求见 [references/ai-for-science-sources.md
 
 **统计窗口：YYYY-MM-DD HH:mm 至 YYYY-MM-DD HH:mm（时区）**
 **检索截止：YYYY-MM-DD HH:mm（时区）**
+**生成模型：<model-name>**
 
 ## Introduction
 概括本期最重要的2至4条趋势，并说明是否存在重大的模型发布。
@@ -183,6 +209,11 @@ AI for Science 预印本的证据要求见 [references/ai-for-science-sources.md
 - [ ] “第三方评价”有真实第三方依据；否则已改称“综合评价”。
 
 ### 质量验证
+
+- [ ] 任务由带有 `execution_role: isolated_worker` 的 fresh subagent 独立执行。
+- [ ] subagent 未继承或接收此前对话中的候选新闻与研究判断。
+- [ ] 输出已写入 Markdown 文件，文件名以实际执行模型名称结尾。
+- [ ] 正文开头记录的生成模型与文件名中的模型名称一致。
 
 - [ ] 各类别覆盖由真实新闻决定，没有机械凑齐。
 - [ ] 事实、来源观点和本简报推断表述清楚。
