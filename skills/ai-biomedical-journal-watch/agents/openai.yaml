@@ -1,0 +1,5 @@
+interface:
+  display_name: "Biomedical Journal Watch v0.2.1"
+  short_description: "生物医学 AI 期刊监测、筛选与审计"
+  default_prompt: "Use $ai-biomedical-journal-watch to screen the last 96 hours across 18 journals, audit every decision, and produce a date-stamped bounded Chinese report."
+
