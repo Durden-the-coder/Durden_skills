@@ -1,0 +1,242 @@
+{
+  "records": [
+    {
+      "doi": "10.1038/s41592-026-03186-8",
+      "non_research_type": false,
+      "recommended_decision": "screenable",
+      "screening_evidence": {
+        "source": "publisher",
+        "abstract": "Untargeted metabolomics is a powerful approach for exploring the chemical diversity and dynamics of biological systems. However, the types of questions that can be addressed depend not only on experimental design but also on the data processing and analysis workflows used, many of which require advanced computational expertise. GNPS 1 , now transitioning to its second major implementation (GNPS2), has evolved into an expandable platform that supports the integration of modular web applications designed to simplify and enhance downstream analysis. These apps, named MetaboApps, facilitate the postprocessing of outputs of several GNPS workflows and help make repository-scale metabolomics knowledge and other areas of metabolomics more accessible to a broader community."
+      },
+      "sources": {
+        "publisher": {
+          "status": 200,
+          "final_url": "https://www.nature.com/articles/s41592-026-03186-8",
+          "title": "Bridging complexity and accessibility in metabolomics with MetaboApps | Nature Methods",
+          "abstract": "Untargeted metabolomics is a powerful approach for exploring the chemical diversity and dynamics of biological systems. However, the types of questions that can be addressed depend not only on experimental design but also on the data processing and analysis workflows used, many of which require advanced computational expertise. GNPS 1 , now transitioning to its second major implementation (GNPS2), has evolved into an expandable platform that supports the integration of modular web applications designed to simplify and enhance downstream analysis. These apps, named MetaboApps, facilitate the postprocessing of outputs of several GNPS workflows and help make repository-scale metabolomics knowledge and other areas of metabolomics more accessible to a broader community.",
+          "publication_date": "2026/07/24",
+          "challenge": false
+        },
+        "europe_pmc": {
+          "status": 200,
+          "error": "",
+          "matched": true,
+          "title": "Bridging complexity and accessibility in metabolomics with MetaboApps.",
+          "abstract": "",
+          "first_publication_date": "2026-07-24",
+          "publication_types": [
+            "Letter"
+          ],
+          "corrections": [],
+          "pmid": "42498881"
+        },
+        "openalex": {
+          "status": 200,
+          "error": "",
+          "title": "Bridging complexity and accessibility in metabolomics with MetaboApps",
+          "abstract": "",
+          "publication_date": "2026-07-24",
+          "type": "article"
+        },
+        "semantic_scholar": {
+          "status": 200,
+          "error": "",
+          "title": "Bridging complexity and accessibility in metabolomics with MetaboApps.",
+          "abstract": "",
+          "publication_date": "2026-07-24"
+        },
+        "crossref": {
+          "status": 200,
+          "error": "",
+          "title": "Bridging complexity and accessibility in metabolomics with MetaboApps",
+          "abstract": "",
+          "published_online": [
+            2026,
+            7,
+            24
+          ],
+          "type": "journal-article"
+        }
+      }
+    },
+    {
+      "doi": "10.1038/s41592-026-03174-y",
+      "non_research_type": false,
+      "recommended_decision": "screenable",
+      "screening_evidence": {
+        "source": "publisher",
+        "abstract": "The primate brain exhibits complex RNA alternative splicing heterogeneity crucial for functional complexity, yet systematic spatial isoform characterization has been lacking. We developed Fullscope-seq, a full-length single-molecule large field-of-view spatial transcriptomics sequencing method at single-cell resolution, based on programmed concatenation cDNA for multiple long-read sequencing platforms. Applying Fullscope-seq to the macaque brain, we uncovered thousands of genes exhibiting differential transcript usage (DTU) across cortical layers, cell types and brain regions. Fullscope-seq resolved hundreds of major isoform switches across distinct brain regions and identified DTUs between superficial and deep cortical layers. Cortical layer-specific DTUs showed cell-composition dependence, whereas regional DTUs were regulated according to both cellular composition and spatial contexts. These isoform variations showed substantial enrichment for neuropsychiatric disorder-associated genes and were conserved across platforms and species. Our study establishes a scalable framework for spatial isoform analysis and provides a resource for understanding transcriptomic diversity in complex tissues. Fullscope-seq combines a spatial transcriptomics approach (Stereo-seq) with long-read sequencing. The approach provides isoform information at single-cell resolution across a large field of view, as demonstrated on macaque brain slices."
+      },
+      "sources": {
+        "publisher": {
+          "status": 200,
+          "final_url": "https://www.nature.com/articles/s41592-026-03174-y",
+          "title": "Full-length single-cell spatial transcriptomics reveals spatial and cell-type-specific transcript isoforms in the primate brain | Nature Methods",
+          "abstract": "The primate brain exhibits complex RNA alternative splicing heterogeneity crucial for functional complexity, yet systematic spatial isoform characterization has been lacking. We developed Fullscope-seq, a full-length single-molecule large field-of-view spatial transcriptomics sequencing method at single-cell resolution, based on programmed concatenation cDNA for multiple long-read sequencing platforms. Applying Fullscope-seq to the macaque brain, we uncovered thousands of genes exhibiting differential transcript usage (DTU) across cortical layers, cell types and brain regions. Fullscope-seq resolved hundreds of major isoform switches across distinct brain regions and identified DTUs between superficial and deep cortical layers. Cortical layer-specific DTUs showed cell-composition dependence, whereas regional DTUs were regulated according to both cellular composition and spatial contexts. These isoform variations showed substantial enrichment for neuropsychiatric disorder-associated genes and were conserved across platforms and species. Our study establishes a scalable framework for spatial isoform analysis and provides a resource for understanding transcriptomic diversity in complex tissues. Fullscope-seq combines a spatial transcriptomics approach (Stereo-seq) with long-read sequencing. The approach provides isoform information at single-cell resolution across a large field of view, as demonstrated on macaque brain slices.",
+          "publication_date": "2026/07/24",
+          "challenge": false
+        },
+        "europe_pmc": {
+          "status": 200,
+          "error": "",
+          "matched": true,
+          "title": "Full-length single-cell spatial transcriptomics reveals spatial and cell-type-specific transcript isoforms in the primate brain.",
+          "abstract": "The primate brain exhibits complex RNA alternative splicing heterogeneity crucial for functional complexity, yet systematic spatial isoform characterization has been lacking. We developed Fullscope-seq, a full-length single-molecule large field-of-view spatial transcriptomics sequencing method at single-cell resolution, based on programmed concatenation cDNA for multiple long-read sequencing platforms. Applying Fullscope-seq to the macaque brain, we uncovered thousands of genes exhibiting differential transcript usage (DTU) across cortical layers, cell types and brain regions. Fullscope-seq resolved hundreds of major isoform switches across distinct brain regions and identified DTUs between superficial and deep cortical layers. Cortical layer-specific DTUs showed cell-composition dependence, whereas regional DTUs were regulated according to both cellular composition and spatial contexts. These isoform variations showed substantial enrichment for neuropsychiatric disorder-associated genes and were conserved across platforms and species. Our study establishes a scalable framework for spatial isoform analysis and provides a resource for understanding transcriptomic diversity in complex tissues.",
+          "first_publication_date": "2026-07-24",
+          "publication_types": [
+            "Journal Article"
+          ],
+          "corrections": [],
+          "pmid": "42498883"
+        },
+        "openalex": {
+          "status": 200,
+          "error": "",
+          "title": "Full-length single-cell spatial transcriptomics reveals spatial and cell-type-specific transcript isoforms in the primate brain",
+          "abstract": "",
+          "publication_date": "2026-07-24",
+          "type": "article"
+        },
+        "semantic_scholar": {
+          "status": 200,
+          "error": "",
+          "title": "Full-length single-cell spatial transcriptomics reveals spatial and cell-type-specific transcript isoforms in the primate brain.",
+          "abstract": "",
+          "publication_date": "2026-07-24"
+        },
+        "crossref": {
+          "status": 200,
+          "error": "",
+          "title": "Full-length single-cell spatial transcriptomics reveals spatial and cell-type-specific transcript isoforms in the primate brain",
+          "abstract": "",
+          "published_online": [
+            2026,
+            7,
+            24
+          ],
+          "type": "journal-article"
+        }
+      }
+    },
+    {
+      "doi": "10.1016/j.cmet.2026.07.017",
+      "non_research_type": true,
+      "recommended_decision": "exclude_non_research_type",
+      "screening_evidence": null,
+      "sources": {
+        "publisher": {
+          "status": 200,
+          "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S1550413126002901",
+          "title": "Redirecting",
+          "abstract": "",
+          "publication_date": "",
+          "challenge": false
+        },
+        "europe_pmc": {
+          "status": 200,
+          "error": "",
+          "matched": true,
+          "title": "Circadian Clock Interaction with HIF1α Mediates Oxygenic Metabolism and Anaerobic Glycolysis in Skeletal Muscle.",
+          "abstract": "",
+          "first_publication_date": "2026-07-24",
+          "publication_types": [
+            "Published Erratum"
+          ],
+          "corrections": [
+            {
+              "id": "27773696",
+              "source": "MED",
+              "reference": "Cell Metab. 2017 Jan 10;25(1):86-92. doi: 10.1016/j.cmet.2016.09.010.",
+              "type": "Erratum for",
+              "orderIn": 1
+            }
+          ],
+          "pmid": "42497853"
+        },
+        "openalex": {
+          "status": 404,
+          "error": "<!doctype html>\n<html lang=en>\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try agai",
+          "title": "",
+          "abstract": "",
+          "publication_date": "",
+          "type": ""
+        },
+        "semantic_scholar": {
+          "status": 200,
+          "error": "",
+          "title": "Circadian Clock Interaction with HIF1α Mediates Oxygenic Metabolism and Anaerobic Glycolysis in Skeletal Muscle.",
+          "abstract": "",
+          "publication_date": "2026-07-01"
+        },
+        "crossref": {
+          "status": 200,
+          "error": "",
+          "title": "Circadian Clock Interaction with HIF1α Mediates Oxygenic Metabolism and Anaerobic Glycolysis in Skeletal Muscle",
+          "abstract": "",
+          "published_online": [],
+          "type": "journal-article"
+        }
+      }
+    },
+    {
+      "doi": "10.1016/j.cmet.2026.07.013",
+      "non_research_type": true,
+      "recommended_decision": "exclude_non_research_type",
+      "screening_evidence": null,
+      "sources": {
+        "publisher": {
+          "status": 200,
+          "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S155041312600286X",
+          "title": "Redirecting",
+          "abstract": "",
+          "publication_date": "",
+          "challenge": false
+        },
+        "europe_pmc": {
+          "status": 200,
+          "error": "",
+          "matched": true,
+          "title": "Amelioration of nonalcoholic fatty liver disease by inhibiting the deubiquitylating enzyme RPN11.",
+          "abstract": "",
+          "first_publication_date": "2026-07-23",
+          "publication_types": [
+            "Published Erratum"
+          ],
+          "corrections": [
+            {
+              "id": "39146936",
+              "source": "MED",
+              "reference": "Cell Metab. 2024 Oct 1;36(10):2228-2244.e7. doi: 10.1016/j.cmet.2024.07.014.",
+              "type": "Erratum for",
+              "orderIn": 1
+            }
+          ],
+          "pmid": "42492517"
+        },
+        "openalex": {
+          "status": 404,
+          "error": "<!doctype html>\n<html lang=en>\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try agai",
+          "title": "",
+          "abstract": "",
+          "publication_date": "",
+          "type": ""
+        },
+        "semantic_scholar": {
+          "status": 200,
+          "error": "",
+          "title": "Amelioration of nonalcoholic fatty liver disease by inhibiting the deubiquitylating enzyme RPN11.",
+          "abstract": "",
+          "publication_date": "2026-07-01"
+        },
+        "crossref": {
+          "status": 200,
+          "error": "",
+          "title": "Amelioration of nonalcoholic fatty liver disease by inhibiting the deubiquitylating enzyme RPN11",
+          "abstract": "",
+          "published_online": [],
+          "type": "journal-article"
+        }
+      }
+    }
+  ]
+}
