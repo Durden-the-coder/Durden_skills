@@ -1,0 +1,17 @@
+{
+  "version": "0.2.1",
+  "tag": "v0.2.1",
+  "previous_version": "0.2.0",
+  "legacy_internal_version": "3.2.1",
+  "released": "2026-07-30",
+  "journal_count": 18,
+  "changes": [
+    "Added mandatory pre-render JSONL auditing",
+    "Blocked review and commentary types from original-research inclusion",
+    "Required text evidence for included Letters",
+    "Added lexical-collision guardrails for transformer and predictive terminology",
+    "Made additional-index limits window-aware, including 80 items for 30 days",
+    "Bound exclusion summaries to 10 categories and added UTF-8 BOM Markdown output"
+  ]
+}
+
