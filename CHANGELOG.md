@@ -22,16 +22,6 @@
 
 提交：[81339b1](https://github.com/Durden-the-coder/Durden_skills/commit/81339b11ef344f103ff46c95b7a28ab821c3b4f3)
 
-## 2026-08-12 — 完善个人 Skill 仓库文档
-
-- 根目录 README 增加 `ai-news-72h` 的完整介绍；
-- 根目录 README 增加 `fund-screenshot-digitization` 的完整介绍；
-- 统一 Skill 区块的标题层级、导航和可读性；
-- 保留原有 NSFC 与生物医学期刊追踪内容；
-- 将新增加的 `index-value-download` 和 `fund-nav-fetch` 加入根目录导航。
-
-提交：[8c082c1](https://github.com/Durden-the-coder/Durden_skills/commit/8c082c1de5b050ef4b37ada0e0cbd1888e599ffe)、[b5f1f7b](https://github.com/Durden-the-coder/Durden_skills/commit/b5f1f7b01e5795512007444e5a9eb9ae88b93930)
-
 ## 2026-08-12 — 新增 `fund-screenshot-digitization`
 
 - 新增基金交易截图逐页数字化 Skill；
@@ -45,7 +35,51 @@
 
 提交：[184577a](https://github.com/Durden-the-coder/Durden_skills/commit/184577a90b95b5993211b65297b19eb7508369e1)
 
+## 2026-08-12 — 根目录文档整理
+
+- 根目录 README 增加 `ai-news-72h` 的完整介绍；
+- 根目录 README 增加 `fund-screenshot-digitization` 的完整介绍；
+- 统一四个 Skill 区块的标题层级、导航和可读性；
+- 将 `index-value-download` 和 `fund-nav-fetch` 加入根目录导航。
+
+提交：[8c082c1](https://github.com/Durden-the-coder/Durden_skills/commit/8c082c1de5b050ef4b37ada0e0cbd1888e599ffe)、[b5f1f7b](https://github.com/Durden-the-coder/Durden_skills/commit/b5f1f7b01e5795512007444e5a9eb9ae88b93930)
+
 ## 2026-07-30 — `ai-biomedical-journal-watch` v0.2.1
+
+- 新增并发布 18 本目标期刊的生物医学 AI 追踪 Skill；
+- 支持滚动时间窗口、证据筛选、结果审计和报告渲染；
+- 配套加入期刊优先级、时间窗口、来源策略、筛选契约、审计脚本、渲染脚本和回归测试；
+- 详细版本变更见下方 `v0.2.1` 发布说明。
+
+提交：[09c589c](https://github.com/Durden-the-coder/Durden_skills/commit/09c589c8e97297500156dfe596b3ad485b9cf7c4)、[5777b84](https://github.com/Durden-the-coder/Durden_skills/commit/5777b8445ec72b76d8fc8e7afa3158446e0c8474)
+
+## 2026-06-15 — 新增 `ai-news-72h`
+
+- 新增最近 72 小时全球 AI 新闻简报 Skill；
+- 覆盖模型、Agent、硬件、软件、应用和产业动态；
+- 扩展 AI for Science 信源，纳入 arXiv、bioRxiv、medRxiv、重点生命医学期刊和主要实验室官方渠道；
+- 增加预印本首发版本、时间窗口和研究类型筛选规则；
+- 增加隔离执行、实际模型名输出和结果文件命名规范。
+
+提交：[c741fb2](https://github.com/Durden-the-coder/Durden_skills/commit/c741fb2d9f645eccb39bed4f1fbb29a910495a2c)、[0756700](https://github.com/Durden-the-coder/Durden_skills/commit/07567007293a1e41626e3993e68e47a132b1d8ba)
+
+## 2026-05-08 — 新增 `nsfc-review-ranking`
+
+- 新增对多个 `nsfc-mianshang-review` 评审结果进行横向比较、量化评分、分档和排序的 Skill；
+- 增加 provenance 和输入质量审计；
+- 支持读取最终评审、提交版评价意见和阶段性 TXT 文件；
+- 输出中文排序报告与会话摘要。
+
+提交：[daa47ac](https://github.com/Durden-the-coder/Durden_skills/commit/daa47ac361536455cbf80db73c673c8f8caa8bbf)
+
+## 2026-05-02 — 初始 NSFC 评审 Skill
+
+- 新增 `nsfc-mianshang-review` 面上项目评审 workflow；
+- 支持 PDF/TXT 提取、cache-first 分阶段评审、kill-mode 内部筛查和中文评审意见；
+- 后续补充 supporting skill 路由、fallback provenance、批量提取与完成度质控；
+- 仓库同步建立 MIT License、免责声明和安全说明。
+
+提交：[a138bf e](https://github.com/Durden-the-coder/Durden_skills/commit/a138bfecd068b6fabddba7dc46d3e866e7c87e39)、[c138051](https://github.com/Durden-the-coder/Durden_skills/commit/c138051dbd36f8403f70ee14ebea203bfafe367b)
 
 ## v0.2.1 — 2026-07-30
 
@@ -91,4 +125,3 @@
 - 增加 Nature Methods、Cell Metabolism、时间窗口、趋势分流、证据长度和编码回归测试。
 
 `v0.2.1` 对应此前内部测试的 V3.2.1 稳定线；从本版本开始，对外统一使用语义化版本号。
-
