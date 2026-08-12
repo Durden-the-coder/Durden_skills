@@ -8,7 +8,9 @@
 
 ## Skills
 
-### `skills/nsfc-mianshang-review`
+### 1. `skills/nsfc-mianshang-review`
+
+首次进入仓库：2026-05-02
 
 国家自然科学基金面上项目评审 skill 和工作流，通过一个入口 skill 调度多个专业 skill 协作完成结构化评审。目前已开发面上项目评审 workflow，适合用于项目申请人提交申请书之前的自查，也适合内部预审时快速搭建审阅底稿。
 
@@ -26,7 +28,9 @@ Main files:
 - `skills/nsfc-mianshang-review/README.md`
 - `skills/nsfc-mianshang-review/scripts/extract_nsfc_text.py`
 
-### `skills/nsfc-review-ranking`
+### 2. `skills/nsfc-review-ranking`
+
+首次进入仓库：2026-05-08
 
 `nsfc-review-ranking` 用于对多个 `nsfc-mianshang-review` 已生成的评审结果进行横向排序、量化分档和对比总结。它不重新阅读原始 PDF，优先读取 `review/05_final_review.txt`、`review/06_submitted_review_comment.txt` 和 01-04 阶段文件，并根据 provenance header 区分 explicit skill call、fallback、protocol violation 和未完成 skeleton。
 
