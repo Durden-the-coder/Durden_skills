@@ -28,3 +28,8 @@ AI 输出可能存在遗漏、误判、幻觉、文献核查错误或语气偏�
 ## Liability
 
 The software and workflow are provided "as is" without warranty of any kind. The author is not responsible for any funding, research, compliance, confidentiality, legal, ethical, or operational consequences arising from use of this project.
+
+
+## 基金交易截图数字化 skill
+
+本仓库中的基金交易截图数字化 skill 仅用于截图转录、数据整理和统计输入准备，不提供投资建议、基金推荐、收益预测或交易决策。截图识别可能存在遗漏或误读，使用者必须依据原图进行复核，并自行承担数据保密、合规和使用后果。本项目不隶属于天天基金、任何基金管理人或金融监管机构。
