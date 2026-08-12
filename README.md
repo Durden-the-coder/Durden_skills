@@ -533,3 +533,65 @@ references/data-contract.md
 ### 许可证
 
 本 Skill 采用 [MIT License](../../LICENSE)。仓库级免责条款见 [DISCLAIMER.md](../../DISCLAIMER.md)。
+
+
+---
+
+## 5. index-value-download
+
+从理杏仁（lixinger.com）批量下载指数估值历史数据 CSV，支持 PE-TTM、PB 和股息率等指标，并统一使用“市值加权”和“按日—全部时间段”粒度。
+
+主要能力：
+
+- 支持“上市以来”、10 年、5 年和 3 年等时间范围；
+- 支持断点续传、跳过已完成文件和缺口检查；
+- 默认处理一组常用指数，也可以通过 `--indices` 指定指数；
+- 依赖 Playwright 与 Edge 浏览器，使用真实浏览器流程完成登录和下载；
+- 账号和密码只通过 `LIXINGER_USER`、`LIXINGER_PASS` 环境变量传入，不写入脚本、日志或记忆。
+
+主要文件：
+
+- [`SKILL.md`](skills/index-value-download/SKILL.md)：执行规范、凭据要求和操作流程；
+- [`README.md`](skills/index-value-download/README.md)：安装、参数与使用说明；
+- [`lixinger_download.py`](skills/index-value-download/scripts/lixinger_download.py)：批量下载脚本。
+
+基本调用示例：
+
+```bash
+python scripts/lixinger_download.py --range "上市以来" --out "D:/指数估值数据" --skip-existing
+```
+
+使用该 Skill 前必须由用户提供本轮使用的理杏仁账号信息；不得使用历史会话、示例或缓存凭据。
+
+## 6. fund-nav-fetch
+
+从天天基金／东方财富公开接口获取公募基金历史净值，并按基金生成 UTF-8-SIG 编码的 CSV 文件。支持直接输入 6 位基金代码、输入基金名称自动查询代码，或读取名称到代码的 JSON 映射。
+
+主要能力：
+
+- 获取单位净值、累计净值和日增长率；
+- 通过真实浏览器、Referer 和路由拦截绕过常见 CORS 与分页问题；
+- 按 `pageIndex` 逐页获取完整历史记录，不依赖被忽略的 `pageSize`；
+- 自动去重、按日期升序排列并按基金名称生成安全文件名；
+- 支持 Edge，失败时可回退到 Playwright 自带 Chromium；
+- 不需要会员、登录或账号密码。
+
+主要文件：
+
+- [`SKILL.md`](skills/fund-nav-fetch/SKILL.md)：接口约束、执行流程和运行环境；
+- [`tips.md`](skills/fund-nav-fetch/references/tips.md)：接口、分页、Referer 和 Playwright 路由陷阱；
+- [`fetch_fund_nav.py`](skills/fund-nav-fetch/scripts/fetch_fund_nav.py)：历史净值抓取脚本。
+
+基本调用示例：
+
+```bash
+python scripts/fetch_fund_nav.py --codes "110003,163406"
+```
+
+输出文件按以下形式命名：
+
+```text
+<代码>_<名称>_净值_完整_<起始年>-<结束年>.csv
+```
+
+注意：该 Skill 仅用于公开历史数据抓取和整理，不构成投资建议，也不保证数据适合直接用于交易决策。
