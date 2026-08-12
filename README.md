@@ -25,6 +25,31 @@ Peer-review skills and review workflows for NSFC grant applications.
 
 ## Skills
 
+### `skills/fund-screenshot-digitization`
+
+基金交易截图数字化 skill：将无法导出的基金交易截图逐页转录为高精度 Excel，并合并为一个可供统计项目使用的单标签页输入文件。
+
+主要能力：
+
+- 按文件名排序建立页码与原图映射；
+- 逐页、逐行保留日期、时间、产品、基金代码、交易类型、申请/确认数值与单位、账户和状态；
+- 支持 4–8 个 agent 并行处理，每页独立输出，避免并发写同一个工作簿；
+- 自动合并、页码覆盖、页内序号唯一性、基金代码、公式和短页校验；
+- 明确区分 `--`、空白字段和数值零，不擅自补全截图中未显示的信息。
+
+主要文件：
+
+- `skills/fund-screenshot-digitization/SKILL.md`
+- `skills/fund-screenshot-digitization/README.md`
+- `skills/fund-screenshot-digitization/scripts/merge_workbooks.py`
+- `skills/fund-screenshot-digitization/scripts/validate_workbooks.py`
+
+使用示例：
+
+```text
+使用 $fund-screenshot-digitization，逐页识别这些基金交易截图，生成单页复核表，并合并成一个单标签页统计输入文件。
+```
+
 ### `skills/nsfc-mianshang-review`
 
 国家自然科学基金面上项目评审 skill 和工作流，通过一个入口 skill 调度多个专业 skill 协作完成结构化评审。目前已开发面上项目评审 workflow，适合用于项目申请人提交申请书之前的自查，也适合内部预审时快速搭建审阅底稿。
