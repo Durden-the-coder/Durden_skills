@@ -17,7 +17,7 @@ Peer-review skills and review workflows for NSFC grant applications.
 
 本仓库用于存放面向科研评审和项目书预审的 reusable skills / workflow。当前重点是国自然面上（包括青C）项目评审 workflow，后续可能继续追加其他类型的科研评审或写作辅助 skill。
 
-## 项目介绍
+### 项目介绍
 
 国家自然科学基金评审 skill 和工作流，通过多个专业 skill 的调用和协作，辅助完成项目书的结构化审阅。目前已开发 **面上项目评审（包括青C） skill**，后续可能追加其他类型项目的评审 workflow。
 
@@ -27,7 +27,7 @@ Peer-review skills and review workflows for NSFC grant applications.
 
 这个仓库本质上也是一次练习：尝试把一个真实科研工作流，从临时 prompt 逐步整理成可复用的 skill / workflow / lightweight AI harness。欢迎交流、fork、提 issue 或提交改进。
 
-## 声明
+### 声明
 
 本项目是一个非官方、实验性的 AI workflow skill，用于学习交流、内部预审和工作流探索。
 
@@ -36,9 +36,9 @@ Peer-review skills and review workflows for NSFC grant applications.
 - 请勿把真实、敏感、涉密或未经授权的项目书材料提交到公开 issue、PR 或不可信环境中。
 - 本项目以 MIT License 开源，欢迎学习、交流、fork 和改进。
 
-## Skills
+### Skills
 
-### `skills/nsfc-mianshang-review`
+#### `skills/nsfc-mianshang-review`
 
 国家自然科学基金面上项目评审 skill 和工作流，通过一个入口 skill 调度多个专业 skill 协作完成结构化评审。目前已开发面上项目评审 workflow，适合用于项目申请人提交申请书之前的自查，也适合内部预审时快速搭建审阅底稿。
 
@@ -56,7 +56,7 @@ Main files:
 - `skills/nsfc-mianshang-review/README.md`
 - `skills/nsfc-mianshang-review/scripts/extract_nsfc_text.py`
 
-### `skills/nsfc-review-ranking`
+#### `skills/nsfc-review-ranking`
 
 `nsfc-review-ranking` 用于对多个 `nsfc-mianshang-review` 已生成的评审结果进行横向排序、量化分档和对比总结。它不重新阅读原始 PDF，优先读取 `review/05_final_review.txt`、`review/06_submitted_review_comment.txt` 和 01-04 阶段文件，并根据 provenance header 区分 explicit skill call、fallback、protocol violation 和未完成 skeleton。
 
@@ -73,13 +73,13 @@ Main files:
 - `skills/nsfc-review-ranking/scripts/collect_review_results.py`
 - `skills/nsfc-review-ranking/references/scoring-rubric.txt`
 
-## 质量与边界
+### 质量与边界
 
 当前 skill 经过人工核查，验证了输出结果具备较高质量，可以作为快速审阅本子的底稿，节约时间并帮助减少关键细节遗漏。不过它仍然不是正式评审系统，也不保证判断完全准确。
 
 本人没有系统学习过编程，主要依靠 AI 辅助制作工具，肯定存在疏漏和不足，工具也会不定期迭代。欢迎交流、提建议和提交改进。
 
-## 配套文件
+### 配套文件
 
 - `LICENSE`: MIT 开源许可证
 - `DISCLAIMER.md`: 免责声明
@@ -283,7 +283,7 @@ ai-news-72h/
 
 当前公开版本：`v0.2.1`。
 
-## 适用场景
+### 适用场景
 
 - 每隔数天追踪顶级期刊中的生物医学 AI 新研究；
 - 按最近72小时、96小时、7天或30天生成期刊速览；
@@ -294,17 +294,17 @@ ai-news-72h/
 
 本工具定位为高频期刊监测，而不是严格意义上的系统综述。7天左右的窗口通常能在覆盖率、判断质量和阅读负担之间取得较好平衡；30天窗口候选量更大，适合回顾性扫描，但可能需要更多人工抽查。
 
-## 监测的18本期刊
+### 监测的18本期刊
 
 期刊层级只用于结果排序，不会把不相关内容变成符合项。
 
-### 第一层：顶级综合期刊
+#### 第一层：顶级综合期刊
 
 1. Nature
 2. Science
 3. Cell
 
-### 第二层：顶级医学与方法学期刊
+#### 第二层：顶级医学与方法学期刊
 
 4. Nature Medicine
 5. Nature Biotechnology
@@ -315,7 +315,7 @@ ai-news-72h/
 
 临床期刊只监测 NEJM 和 The Lancet 正刊，不包含 NEJM AI、The Lancet Digital Health 或其他临床子刊。
 
-### 第三层：高影响专业期刊
+#### 第三层：高影响专业期刊
 
 10. Nature Cell Biology
 11. Nature Machine Intelligence
@@ -324,13 +324,13 @@ ai-news-72h/
 14. Cancer Cell
 15. Science Translational Medicine
 
-### 第四层：重要综合与专业期刊
+#### 第四层：重要综合与专业期刊
 
 16. Nature Communications
 17. Developmental Cell
 18. Science Advances
 
-## 时间窗口
+### 时间窗口
 
 支持以下形式：
 
@@ -343,7 +343,7 @@ ai-news-72h/
 
 滚动窗口采用半开区间 `[start, as_of)`。超过7天的任务按7天切片采集，最终合并去重并统一排序，避免一次性输入过大。
 
-## 内容筛选规则
+### 内容筛选规则
 
 一篇研究进入主要结果，必须同时满足：
 
@@ -361,7 +361,7 @@ ai-news-72h/
 
 证据不足但疑似相关的原创研究进入 `needs_evidence`，不会被静默排除。
 
-## 研究与趋势内容分流
+### 研究与趋势内容分流
 
 报告把内容分为四类：
 
@@ -372,7 +372,7 @@ ai-news-72h/
 
 趋势与观点不占用研究论文的20篇详写名额，默认只显示期刊、发布日期、类型、标题和链接。
 
-## 排序与输出上限
+### 排序与输出上限
 
 主要排序顺序为：
 
@@ -392,7 +392,7 @@ ai-news-72h/
 
 展示限制不会减少发现和筛选范围。未展示记录仍保存在 JSONL 中。
 
-## 数据来源与特殊处理
+### 数据来源与特殊处理
 
 工具综合使用期刊官网、RSS、Crossref、PubMed、Europe PMC 和其他可审计来源。部分期刊具有专门策略：
 
@@ -404,7 +404,7 @@ ai-news-72h/
 
 单个来源失败只影响相应期刊或记录，不会让整个任务简单地变成“全部失败”。
 
-## 安装
+### 安装
 
 将整个文件夹复制到 Codex skills 目录：
 
@@ -418,7 +418,7 @@ ai-news-72h/
 $ai-biomedical-journal-watch
 ```
 
-## 使用示例
+### 使用示例
 
 ```text
 使用 $ai-biomedical-journal-watch 检索最近7天的生物医学AI期刊内容，优先展示20篇研究。
@@ -428,7 +428,7 @@ $ai-biomedical-journal-watch
 使用 $ai-biomedical-journal-watch 检索最近30天内容，保留AI相关评论和新闻，但限制趋势列表为20条。
 ```
 
-## 审计与渲染
+### 审计与渲染
 
 最终报告生成前必须审计 reviewed JSONL：
 
@@ -444,7 +444,7 @@ python scripts\audit_reviewed_jsonl.py --input reviewed.jsonl --output audit.jso
 python scripts\render_report_v321.py --window 7d --input reviewed.jsonl --output report.md
 ```
 
-## 已知限制
+### 已知限制
 
 - 出版商访问限制可能导致部分记录只有单一来源；
 - 数据库收录和在线发表日期可能存在延迟；
