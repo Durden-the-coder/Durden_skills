@@ -1,8 +1,17 @@
 # Durden_skills
 
+个人 Agent Skill 仓库，收录经过实际使用、验证和持续迭代的可复用工作流。
+
+## 内容导航
+
+1. [mianshang-skills](#1-mianshang-skills)：国家自然科学基金面上项目评审与结果排序
+2. [ai-news-72h](#2-ai-news-72h)：最近 72 小时 AI 新闻与 AI for Science 研究动态
+3. [AI 生物医学期刊追踪](#3-ai-生物医学期刊追踪-skill)：重点期刊中的生物医学 AI 研究监测
+4. [fund-screenshot-digitization](#4-fund-screenshot-digitization)：基金交易截图逐页数字化与 Excel 汇总
+
 ---
 
-## mianshang-skills
+## 1. mianshang-skills
 
 Peer-review skills and review workflows for NSFC grant applications.
 
@@ -78,10 +87,197 @@ Main files:
 
 This repository is intended to hold reusable skill bundles rather than full applications.
 
+---
+
+## 2. ai-news-72h
+
+用于检索、核验并撰写最近 72 小时全球 AI 新闻和 AI for Science 研究动态的 Codex Skill。
+
+除基础模型、Agent、硬件、软件和应用新闻外，本 Skill 重点捕捉刚发布的科研消息，包括早期预印本、生命医学重点期刊论文，以及主要实验室首次公开的新研究或科研资源。
+
+### 主要能力
+
+- 按用户时区计算精确的最近 72 小时时间窗
+- 区分事件发生时间、首次公开时间和媒体发布时间
+- 检索模型、Agent、硬件、软件、应用和产业新闻
+- 监测 arXiv、bioRxiv 和 medRxiv 的首次发布预印本
+- 核对 arXiv `v1` 时间，排除 `v2`、`v3` 等后续更新
+- 监测指定生命与医学重点期刊的新在线原创研究
+- 监测主要实验室首次公开的新研究、模型、数据集和科研工具
+- 提供摘要、验证情况、重要性评价、局限和原始来源
+- 执行时间、事实、来源、研究类型和链接检查
+- 使用 fresh subagent 独立运行，避免受当前会话上下文污染
+- 将实际执行模型名称加入 Markdown 输出文件名
+
+### AI for Science 信源
+
+#### 早期预印本
+
+- arXiv
+- bioRxiv
+- medRxiv
+
+只纳入最近 72 小时内首次发布的版本：
+
+- arXiv 使用 `v1` 首次提交时间；
+- bioRxiv 和 medRxiv 使用首个版本发布日期；
+- 不纳入 `v2`、`v3` 等版本更新；
+- 不因网页更新时间改变而将旧论文视为新研究。
+
+#### 生命与医学重点期刊
+
+- Nature
+- Science
+- Cell
+- Nature Medicine
+- Nature Biotechnology
+- Nature Methods
+- Nature Genetics
+- Nature Communications
+- Science Advances
+- PNAS（Proceedings of the National Academy of Sciences）
+- Cell Systems
+- Patterns（Cell Press AI 期刊）
+- Cancer Cell
+- The New England Journal of Medicine
+- NEJM AI
+- The Lancet
+- The Lancet Digital Health
+- Nature Machine Intelligence
+- Science Translational Medicine
+
+只纳入 AI 或机器学习构成核心方法或主要贡献的原创研究，并使用 `Published online` 日期判断时间窗。
+
+不使用 PubMed 作为发现或纳入来源。
+
+#### 实验室官方渠道
+
+重点包括：
+
+- OpenAI
+- Anthropic
+- Google Research
+- Google DeepMind
+- Microsoft Research
+- Meta FAIR
+- NVIDIA Research
+- Broad Institute
+- EMBL-EBI
+- Allen Institute
+- Arc Institute
+- Chan Zuckerberg Initiative
+
+只纳入首次公开的新研究、模型、数据集、科研工具或实验系统。不纳入旧论文的新博客、重新宣传或成果回顾。
+
+### AI for Science 纳入范围
+
+AI 或机器学习必须是核心方法、主要技术贡献、主要研究对象，或对科学发现和实验流程具有实质作用。重点包括：
+
+- 生物学基础模型和生物医学多模态模型
+- 蛋白质结构预测、功能建模和生成式设计
+- AI 药物发现与分子生成
+- 基因组学、单细胞和空间组学机器学习
+- AI 医学影像与数字病理
+- 虚拟细胞和数据驱动的生物系统模拟
+- AI 辅助实验设计与自动化实验室
+- 生物医学科学 Agent
+- 临床 AI 模型和医疗多模态模型
+
+排除：
+
+- 仅使用常规统计分析的研究
+- 仅使用传统生物信息学流程的研究
+- 只在摘要或讨论中提及 AI 的论文
+- AI 不是主要方法或贡献的普通生命医学论文
+- 一般医疗软件或普通行业新闻
+- News、Editorial、Comment、Perspective 和普通综述
+
+### 预印本处理
+
+刚发布的预印本可以仅依据原始论文页面纳入，无须等待媒体报道，但必须：
+
+- 标注“预印本，尚未同行评议”；
+- 核对首次版本和发布时间；
+- 区分作者声明与本简报判断；
+- 使用“综合评价”，不声称存在第三方共识；
+- 检查代码、数据和模型是否开放；
+- 不把作者报告的基准结果视为独立验证。
+
+### 输出内容
+
+默认包括：
+
+1. 精确统计窗口与检索截止时间
+2. Introduction
+3. 模型、Agent、硬件、软件和应用新闻
+4. AI for Science 早期研究
+5. 生命与医学重点期刊论文
+6. 实验室官方科研动态
+7. 科学问题、AI 方法、数据和关键结果
+8. 计算、湿实验或临床验证情况
+9. 代码、数据和模型开放情况
+10. 综合重要性评价与主要局限
+11. 原始来源链接
+12. 全文总结与方法局限
+
+### 隔离执行与文件名
+
+每次运行由一个不继承当前对话历史的 fresh subagent 独立完成。协调者只传递当前请求、时间与时区、输出目录、模型标识及 Skill 文件，不传递此前候选新闻或研究判断。
+
+结果必须写入 Markdown 文件，并在 `.md` 前加入实际执行 subagent 的模型名称：
+
+```text
+ai-news-72h_YYYY-MM-DD_<model-name>.md
+```
+
+例如：
+
+```text
+ai-news-72h_2026-07-01_deepseek-V4-pro.md
+```
+
+正文开头同时记录实际生成模型。
+
+### 使用示例
+
+```text
+搜索最近 72 小时 AI 领域的新闻，并单列 AI for Science。
+检查 arXiv、bioRxiv、medRxiv、生命医学重点期刊和主要实验室官方渠道。
+预印本只纳入首次发布版本，arXiv 必须核对 v1 时间。
+```
+
+### 安装
+
+将本目录放入 Codex Skills 目录：
+
+```text
+~/.codex/skills/ai-news-72h
+```
+
+### 文件结构
+
+```text
+ai-news-72h/
+├── SKILL.md
+├── README.md
+├── CHANGELOG.md
+├── references/
+│   └── ai-for-science-sources.md
+└── agents/
+    └── openai.yaml
+```
+
+- [`SKILL.md`](./SKILL.md)：核心工作流和通用验证清单
+- [CHANGELOG.md](./CHANGELOG.md)：版本更新记录与验证结果
+- [`references/ai-for-science-sources.md`](./references/ai-for-science-sources.md)：AI for Science 信源、筛选、输出和专项验证规则
+
+### 免责声明
+
+本 Skill 用于新闻研究、资料整理和辅助写作。预印本尚未同行评议，期刊论文和机构声明也需要结合原始数据、实验设计和后续验证进行人工判断。
 
 ---
 
-## AI 生物医学期刊追踪skill
+## 3. AI 生物医学期刊追踪 Skill
 
 `ai-biomedical-journal-watch` 用于持续追踪顶级综合期刊、医学与方法学期刊以及重要专业期刊中的生物医学 AI 内容。它会完成候选发现、证据补全、语义筛选、期刊优先级排序、结果审计和中文报告生成，并保留可追溯的 JSONL 决策记录。
 
@@ -258,3 +454,82 @@ python scripts\render_report_v321.py --window 7d --input reviewed.jsonl --output
 
 建议将7天监测作为常规使用模式，并对30天回顾中的边界条目进行抽查。
 
+---
+
+## 4. fund-screenshot-digitization
+
+一个以 `SKILL.md` 为核心规范、优先保证 Codex 完整调用，同时兼容其他 Agent 的基金交易截图数字化 skill。它将截图逐页转录为 Excel，并汇总为单标签页统计输入文件。
+
+### Codex 支持（首要兼容目标）
+
+仓库保留了 Codex 所需的宿主适配文件 `agents/openai.yaml`，不要在安装或迁移时删除、重命名或跳过它。
+
+将整个目录复制到 Codex skill 目录：
+
+```text
+%USERPROFILE%\.codex\skills\fund-screenshot-digitization
+```
+
+新建 Codex 任务后调用：
+
+```text
+$fund-screenshot-digitization
+```
+
+使用示例：
+
+```text
+使用 $fund-screenshot-digitization，逐页识别这些基金交易截图，生成单页复核表，并合并成一个单标签页统计输入文件。
+```
+
+Codex 的执行依据是 `SKILL.md`；`agents/openai.yaml` 只负责宿主发现、显示名称和默认调用提示，不替代核心流程。
+
+### 其他 Agent 兼容方式
+
+`SKILL.md` 是跨 Agent 可复用的核心文件，不依赖 Codex API 或专有工具。对于其他支持 skill/instruction 文件的 Agent：
+
+1. 将整个 `fund-screenshot-digitization` 目录放入该 Agent 的 skills、instructions 或可加载规则目录；
+2. 确保 Agent 读取 `SKILL.md`，并把它作为本任务的执行规范；
+3. 如果宿主不能自动发现 skill，则在任务中提供 `SKILL.md` 的文件路径，或直接加载其内容；
+4. 使用 `scripts/merge_workbooks.py` 和 `scripts/validate_workbooks.py` 完成合并与校验；
+5. 保留 `agents/openai.yaml` 即可兼容 Codex，同时不影响其他 Agent 忽略该可选适配文件。
+
+通用调用示例：
+
+```text
+请读取 fund-screenshot-digitization/SKILL.md，逐页识别指定的基金交易截图。每页独立输出并复核，完成后合并为一个名为“交易明细”的单标签页 Excel，并运行校验脚本。
+```
+
+### 适用场景
+
+- 基金网站不支持交易记录导出，只能从截图恢复数据；
+- 需要按页精细识别日期、时间、产品、基金代码、交易类型、申请/确认数值、单位、账户和状态；
+- 需要将多个逐页 Excel 合并成可供其他项目统计的单表文件；
+- 需要对页码覆盖、行号唯一性、基金代码格式、公式和短页进行自动检查。
+
+### 工作方式
+
+1. 按文件名排序建立页码与原图的映射；
+2. 每页独立识别，不让多个 Agent 同时写同一个工作簿；
+3. 使用第 13 页模板生成页面级 Excel，并保留 `交易记录`、`数字字段` 两个工作表；
+4. 对特殊状态、`--`、空白字段、异常单位和短页原样保留；
+5. 通过合并脚本生成一个 `交易明细` 标签页；
+6. 运行校验脚本检查缺页、重复页内序号、基金代码、公式和记录数。
+
+### 目录
+
+```text
+SKILL.md
+agents/openai.yaml
+scripts/merge_workbooks.py
+scripts/validate_workbooks.py
+references/data-contract.md
+```
+
+### 免责声明
+
+本 Skill 只提供截图转录和表格整理能力，不提供投资建议、基金推荐、收益预测或交易决策。截图识别可能存在遗漏或误读，所有数字和状态都应由使用者依据原图复核。使用者应自行负责数据保密、合规和由数据使用产生的后果。本项目不隶属于天天基金、任何基金管理人或金融监管机构。
+
+### 许可证
+
+本 Skill 采用 [MIT License](../../LICENSE)。仓库级免责条款见 [DISCLAIMER.md](../../DISCLAIMER.md)。
