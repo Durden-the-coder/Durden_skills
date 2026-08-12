@@ -9,7 +9,7 @@
 将整个目录复制到 Codex skill 目录：
 
 ```text
-%USERPROFILE%\\.codex\\skills\\fund-screenshot-digitization
+%USERPROFILE%\.codex\skills\fund-screenshot-digitization
 ```
 
 新建 Codex 任务后调用：
