@@ -1,16 +1,31 @@
 # Durden_skills
 
-个人 Agent Skill 仓库。
+Peer-review skills and review workflows for NSFC grant applications.
 
-这里收录我在实际工作中整理、验证和持续迭代的可复用 Skill。每个 Skill 都以自身目录中的 `SKILL.md` 为核心执行规范，并根据需要附带脚本、参考资料、测试样例和宿主适配配置。
+本仓库用于存放面向科研评审和项目书预审的 reusable skills / workflow。当前重点是国自然面上（包括青C）项目评审 workflow，后续可能继续追加其他类型的科研评审或写作辅助 skill。
 
-本 README 保留各个 Skill 的详细介绍、能力边界和使用说明。Skill 的排列依据是其首次进入本仓库的 GitHub 提交时间，后续更新不会改变其首次发布日期。
+## 项目介绍
+
+国家自然科学基金评审 skill 和工作流，通过多个专业 skill 的调用和协作，辅助完成项目书的结构化审阅。目前已开发 **面上项目评审（包括青C） skill**，后续可能追加其他类型项目的评审 workflow。
+
+当前 skill 经过人工核查，验证了输出结果具备较高质量，可以作为快速审阅本子的“搭子”：帮助节约时间、搭建评审底稿，并尽量减少关键细节遗漏。
+
+它也适合项目申请人在提交申请书之前，用来核对和检查内容质量，提前暴露创新性、研究逻辑、可行性、文献边界和结构性缺陷等问题。
+
+这个仓库本质上也是一次练习：尝试把一个真实科研工作流，从临时 prompt 逐步整理成可复用的 skill / workflow / lightweight AI harness。欢迎交流、fork、提 issue 或提交改进。
+
+## 声明
+
+本项目是一个非官方、实验性的 AI workflow skill，用于学习交流、内部预审和工作流探索。
+
+- 本项目不隶属于国家自然科学基金委员会，也不代表任何官方评审意见。
+- 输出内容不能替代专家判断，使用者应自行进行人工复核。
+- 请勿把真实、敏感、涉密或未经授权的项目书材料提交到公开 issue、PR 或不可信环境中。
+- 本项目以 MIT License 开源，欢迎学习、交流、fork 和改进。
 
 ## Skills
 
-### 1. `skills/nsfc-mianshang-review`
-
-首次进入仓库：2026-05-02
+### `skills/nsfc-mianshang-review`
 
 国家自然科学基金面上项目评审 skill 和工作流，通过一个入口 skill 调度多个专业 skill 协作完成结构化评审。目前已开发面上项目评审 workflow，适合用于项目申请人提交申请书之前的自查，也适合内部预审时快速搭建审阅底稿。
 
@@ -28,9 +43,7 @@ Main files:
 - `skills/nsfc-mianshang-review/README.md`
 - `skills/nsfc-mianshang-review/scripts/extract_nsfc_text.py`
 
-### 2. `skills/nsfc-review-ranking`
-
-首次进入仓库：2026-05-08
+### `skills/nsfc-review-ranking`
 
 `nsfc-review-ranking` 用于对多个 `nsfc-mianshang-review` 已生成的评审结果进行横向排序、量化分档和对比总结。它不重新阅读原始 PDF，优先读取 `review/05_final_review.txt`、`review/06_submitted_review_comment.txt` 和 01-04 阶段文件，并根据 provenance header 区分 explicit skill call、fallback、protocol violation 和未完成 skeleton。
 
@@ -47,55 +60,22 @@ Main files:
 - `skills/nsfc-review-ranking/scripts/collect_review_results.py`
 - `skills/nsfc-review-ranking/references/scoring-rubric.txt`
 
-### 3. `skills/ai-news-72h`
+## 质量与边界
 
-首次进入仓库：2026-06-15
+当前 skill 经过人工核查，验证了输出结果具备较高质量，可以作为快速审阅本子的底稿，节约时间并帮助减少关键细节遗漏。不过它仍然不是正式评审系统，也不保证判断完全准确。
 
-用于检索、核验并撰写最近 72 小时全球 AI 新闻和 AI for Science 研究动态的 Skill。除基础模型、Agent、硬件、软件和应用新闻外，重点捕捉刚发布的科研消息，包括早期预印本、生命医学重点期刊论文，以及主要实验室首次公开的新研究或科研资源。
+本人没有系统学习过编程，主要依靠 AI 辅助制作工具，肯定存在疏漏和不足，工具也会不定期迭代。欢迎交流、提建议和提交改进。
 
-## 主要能力
+## 配套文件
 
-- 按用户时区计算精确的最近 72 小时时间窗；
-- 区分事件发生时间、首次公开时间和媒体发布时间；
-- 检索模型、Agent、硬件、软件、应用和产业新闻；
-- 监测 arXiv、bioRxiv 和 medRxiv 的首次发布预印本；
-- 核对 arXiv `v1` 时间，排除 `v2`、`v3` 等后续更新；
-- 监测指定生命与医学重点期刊的新在线原创研究；
-- 监测主要实验室首次公开的新研究、模型、数据集和科研工具；
-- 提供摘要、验证情况、重要性评价、局限和原始来源；
-- 执行时间、事实、来源、研究类型和链接检查。
+- `LICENSE`: MIT 开源许可证
+- `DISCLAIMER.md`: 免责声明
+- `SECURITY.md`: 安全与敏感材料处理说明
 
-## AI for Science 信源
+This repository is intended to hold reusable skill bundles rather than full applications.
 
-包括 arXiv、bioRxiv、medRxiv，以及 Nature、Science、Cell、Nature Medicine、Nature Biotechnology、Nature Methods、Nature Genetics、Nature Communications、Science Advances、PNAS、Cell Systems、Patterns、Cancer Cell、NEJM、NEJM AI、The Lancet、The Lancet Digital Health、Nature Machine Intelligence 和 Science Translational Medicine 等期刊。
 
-实验室官方渠道重点包括 OpenAI、Anthropic、Google Research、Google DeepMind、Microsoft Research、Meta FAIR、NVIDIA Research、Broad Institute、EMBL-EBI、Allen Institute、Arc Institute 和 Chan Zuckerberg Initiative。
-
-## AI for Science 纳入范围
-
-AI 或机器学习必须是核心方法、主要技术贡献、主要研究对象，或对科学发现和实验流程具有实质作用。重点包括：
-
-- 生物学基础模型和生物医学多模态模型；
-- 蛋白质结构预测、功能建模和生成式设计；
-- AI 药物发现与分子生成；
-- 基因组学、单细胞和空间组学机器学习；
-- AI 医学影像与数字病理；
-- 虚拟细胞和数据驱动的生物系统模拟；
-- AI 辅助实验设计与自动化实验室；
-- 生物医学科学 Agent；
-- 临床 AI 模型和医疗多模态模型。
-
-排除仅使用常规统计分析、传统生物信息学流程、仅在摘要或讨论中提及 AI，或 AI 不是主要方法和贡献的内容。
-
-## 输出与验证
-
-默认输出包括精确统计窗口、检索截止时间、模型与产业新闻、AI for Science 研究、生命医学期刊论文、实验室科研动态、科学问题、AI 方法、关键结果、验证情况、开放情况、综合重要性评价、局限和原始来源链接。
-
-预印本必须标注“尚未同行评议”，核对首次版本和发布时间，不把作者报告的结果写成独立验证结论。
-
-### 4. `skills/ai-biomedical-journal-watch`
-
-首次进入仓库：2026-07-30
+---
 
 ## AI 生物医学期刊追踪
 
@@ -274,101 +254,3 @@ python scripts\render_report_v321.py --window 7d --input reviewed.jsonl --output
 
 建议将7天监测作为常规使用模式，并对30天回顾中的边界条目进行抽查。
 
-### 5. `skills/fund-screenshot-digitization`
-
-首次进入仓库：2026-08-12
-
-一个以 `SKILL.md` 为核心规范、可在 Codex 中完整调用，也可迁移到其他支持 skill/instruction 文件的 Agent 的基金交易截图数字化 skill。它将无法导出的交易截图逐页转录为高精度 Excel，并合并为一个可供统计项目使用的单标签页输入文件。
-
-主要能力：
-
-- 按文件名排序建立页码与原图映射；
-- 逐页、逐行保留日期、时间、产品、基金代码、交易类型、申请/确认数值与单位、账户和状态；
-- 支持 4–8 个 Agent 并行处理，每页独立输出，避免并发写同一个工作簿；
-- 自动合并、页码覆盖、页内序号唯一性、基金代码、公式和短页校验；
-- 明确区分 `--`、空白字段和数值零，不擅自补全截图中未显示的信息。
-
-主要文件：
-
-- `skills/fund-screenshot-digitization/SKILL.md`：跨 Agent 的核心执行规范；
-- `skills/fund-screenshot-digitization/README.md`：安装、调用和兼容性说明；
-- `skills/fund-screenshot-digitization/agents/openai.yaml`：Codex 的宿主适配配置；
-- `skills/fund-screenshot-digitization/scripts/merge_workbooks.py`；
-- `skills/fund-screenshot-digitization/scripts/validate_workbooks.py`。
-
-Codex 使用示例：
-
-```text
-使用 $fund-screenshot-digitization，逐页识别这些基金交易截图，生成单页复核表，并合并成一个单标签页统计输入文件。
-```
-
-其他 Agent 使用时，以 `SKILL.md` 为唯一核心规范；如果宿主支持自动发现 skill，按其目录规则安装即可；如果不支持，则在任务中直接提供该文件路径或加载其内容。
-
-## 仓库级质量与边界
-
-这些 Skill 是个人工作流工具和实验性 AI 辅助工具，不代表任何官方机构或专业意见。输出结果应结合原始材料进行人工复核，不能替代专家判断。
-
-本人没有系统学习过编程，主要依靠 AI 辅助制作工具，肯定存在疏漏和不足，工具也会不定期迭代。欢迎交流、提建议和提交改进。
-
-请勿把真实、敏感、涉密或未经授权的材料提交到公开 issue、PR 或其他不可信环境。
-
-基金交易截图 Skill 只提供截图转录和表格整理能力，不提供投资建议、基金推荐、收益预测或交易决策。截图识别可能存在遗漏或误读，所有数字和状态都应依据原图复核。
-
-## 安装与调用
-
-不同 Agent 的自动发现机制可能不同。通常应将目标 Skill 的整个目录放入宿主的 skills、instructions 或规则目录，并确保读取其中的 `SKILL.md`。
-
-Codex 用户可将 Skill 目录复制到：
-
-```text
-%USERPROFILE%\\.codex\\skills\\<skill-name>
-```
-
-例如基金截图 Skill：
-
-```text
-%USERPROFILE%\\.codex\\skills\\fund-screenshot-digitization
-```
-
-然后使用：
-
-```text
-$fund-screenshot-digitization
-```
-
-其他 Agent 如果不支持自动发现，可在任务中直接提供 `SKILL.md` 的路径或加载其内容。各目录中的 `agents/openai.yaml` 是可选的 Codex 宿主适配文件，不替代 `SKILL.md`。
-
-## 仓库结构
-
-```text
-Durden_skills/
-├── README.md
-├── LICENSE
-├── DISCLAIMER.md
-├── SECURITY.md
-├── CHANGELOG.md
-└── skills/
-    ├── nsfc-mianshang-review/
-    ├── nsfc-review-ranking/
-    ├── ai-news-72h/
-    ├── ai-biomedical-journal-watch/
-    └── fund-screenshot-digitization/
-```
-
-每个 Skill 通常包含：
-
-- `SKILL.md`：核心执行规范；
-- `README.md`：安装、使用和详细说明；
-- `agents/openai.yaml`：可选的 Codex 宿主适配配置；
-- `scripts/`：辅助脚本；
-- `references/`：数据契约、来源策略或其他参考资料；
-- `tests/`：回归测试或示例输入。
-
-## 配套文件
-
-- [MIT License](./LICENSE)
-- [DISCLAIMER.md](./DISCLAIMER.md)
-- [SECURITY.md](./SECURITY.md)
-- [CHANGELOG.md](./CHANGELOG.md)
-
-This repository is intended to hold reusable skill bundles rather than full applications.
