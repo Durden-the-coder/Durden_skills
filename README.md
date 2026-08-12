@@ -1,5 +1,9 @@
 # Durden_skills
 
+---
+
+## mianshang-skills
+
 Peer-review skills and review workflows for NSFC grant applications.
 
 本仓库用于存放面向科研评审和项目书预审的 reusable skills / workflow。当前重点是国自然面上（包括青C）项目评审 workflow，后续可能继续追加其他类型的科研评审或写作辅助 skill。
@@ -77,7 +81,7 @@ This repository is intended to hold reusable skill bundles rather than full appl
 
 ---
 
-## AI 生物医学期刊追踪
+## AI 生物医学期刊追踪skill
 
 `ai-biomedical-journal-watch` 用于持续追踪顶级综合期刊、医学与方法学期刊以及重要专业期刊中的生物医学 AI 内容。它会完成候选发现、证据补全、语义筛选、期刊优先级排序、结果审计和中文报告生成，并保留可追溯的 JSONL 决策记录。
 
