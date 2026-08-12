@@ -1,0 +1,6 @@
+interface:
+  display_name: "Fund Screenshot Digitization"
+  short_description: "逐页识别基金交易截图并生成可统计的标准Excel"
+  default_prompt: "Use $fund-screenshot-digitization to digitize fund transaction screenshots into validated per-page and single-sheet Excel files."
+policy:
+  allow_implicit_invocation: true
