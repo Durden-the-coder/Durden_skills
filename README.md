@@ -8,6 +8,8 @@
 2. [ai-news-72h](#2-ai-news-72h)：最近 72 小时 AI 新闻与 AI for Science 研究动态
 3. [AI 生物医学期刊追踪](#3-ai-生物医学期刊追踪-skill)：重点期刊中的生物医学 AI 研究监测
 4. [fund-screenshot-digitization](#4-fund-screenshot-digitization)：基金交易截图逐页数字化与 Excel 汇总
+5. [index-value-download](#5-index-value-download)：理杏仁指数估值历史数据下载
+6. [fund-nav-fetch](#6-fund-nav-fetch)：公募基金历史净值抓取与 CSV 整理
 
 ---
 
