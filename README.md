@@ -27,28 +27,31 @@ Peer-review skills and review workflows for NSFC grant applications.
 
 ### `skills/fund-screenshot-digitization`
 
-基金交易截图数字化 skill：将无法导出的基金交易截图逐页转录为高精度 Excel，并合并为一个可供统计项目使用的单标签页输入文件。
+一个以 `SKILL.md` 为核心规范、可在 Codex 中完整调用，也可迁移到其他支持 skill/instruction 文件的 Agent 的基金交易截图数字化 skill。它将无法导出的交易截图逐页转录为高精度 Excel，并合并为一个可供统计项目使用的单标签页输入文件。
 
 主要能力：
 
 - 按文件名排序建立页码与原图映射；
 - 逐页、逐行保留日期、时间、产品、基金代码、交易类型、申请/确认数值与单位、账户和状态；
-- 支持 4–8 个 agent 并行处理，每页独立输出，避免并发写同一个工作簿；
+- 支持 4–8 个 Agent 并行处理，每页独立输出，避免并发写同一个工作簿；
 - 自动合并、页码覆盖、页内序号唯一性、基金代码、公式和短页校验；
 - 明确区分 `--`、空白字段和数值零，不擅自补全截图中未显示的信息。
 
 主要文件：
 
-- `skills/fund-screenshot-digitization/SKILL.md`
-- `skills/fund-screenshot-digitization/README.md`
-- `skills/fund-screenshot-digitization/scripts/merge_workbooks.py`
-- `skills/fund-screenshot-digitization/scripts/validate_workbooks.py`
+- `skills/fund-screenshot-digitization/SKILL.md`：跨 Agent 的核心执行规范；
+- `skills/fund-screenshot-digitization/README.md`：安装、调用和兼容性说明；
+- `skills/fund-screenshot-digitization/agents/openai.yaml`：Codex 的宿主适配配置；
+- `skills/fund-screenshot-digitization/scripts/merge_workbooks.py`；
+- `skills/fund-screenshot-digitization/scripts/validate_workbooks.py`。
 
-使用示例：
+Codex 使用示例：
 
 ```text
 使用 $fund-screenshot-digitization，逐页识别这些基金交易截图，生成单页复核表，并合并成一个单标签页统计输入文件。
 ```
+
+其他 Agent 使用时，以 `SKILL.md` 为唯一核心规范；如果宿主支持自动发现 skill，按其目录规则安装即可；如果不支持，则在任务中直接提供该文件路径或加载其内容。
 
 ### `skills/nsfc-mianshang-review`
 
