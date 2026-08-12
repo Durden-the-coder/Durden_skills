@@ -1,5 +1,52 @@
 # 更新记录
 
+## 2026-08-12 — 新增数据下载与基金数据 Skill
+
+### `index-value-download`
+
+- 新增从理杏仁（lixinger.com）批量下载指数估值历史 CSV 的 Skill；
+- 支持 PE-TTM、PB、股息率等指标；
+- 支持“上市以来”、10 年、5 年和 3 年时间范围；
+- 支持断点续传、跳过已完成组合和缺口检查；
+- 使用 Playwright + Edge 完成真实浏览器登录与下载；
+- 强制通过 `LIXINGER_USER` 和 `LIXINGER_PASS` 环境变量传入凭据。
+
+### `fund-nav-fetch`
+
+- 新增从天天基金／东方财富公开接口抓取公募基金历史净值的 Skill；
+- 支持基金名称自动查询代码、6 位基金代码和 JSON 映射输入；
+- 获取单位净值、累计净值和日增长率；
+- 按页抓取完整历史记录，自动去重、排序并生成 UTF-8-SIG CSV；
+- 使用 Playwright、Referer 和路由拦截处理分页与 CORS 限制；
+- 支持 Edge，失败时回退到 Playwright Chromium。
+
+提交：[81339b1](https://github.com/Durden-the-coder/Durden_skills/commit/81339b11ef344f103ff46c95b7a28ab821c3b4f3)
+
+## 2026-08-12 — 完善个人 Skill 仓库文档
+
+- 根目录 README 增加 `ai-news-72h` 的完整介绍；
+- 根目录 README 增加 `fund-screenshot-digitization` 的完整介绍；
+- 统一 Skill 区块的标题层级、导航和可读性；
+- 保留原有 NSFC 与生物医学期刊追踪内容；
+- 将新增加的 `index-value-download` 和 `fund-nav-fetch` 加入根目录导航。
+
+提交：[8c082c1](https://github.com/Durden-the-coder/Durden_skills/commit/8c082c1de5b050ef4b37ada0e0cbd1888e599ffe)、[b5f1f7b](https://github.com/Durden-the-coder/Durden_skills/commit/b5f1f7b01e5795512007444e5a9eb9ae88b93930)
+
+## 2026-08-12 — 新增 `fund-screenshot-digitization`
+
+- 新增基金交易截图逐页数字化 Skill；
+- 支持按文件名排序建立页码映射；
+- 支持逐页、逐行转录和短页保留；
+- 支持 4–8 个 Agent 并行处理，每页独立产物；
+- 新增确定性 Excel 合并脚本；
+- 新增工作簿结构、页码、基金代码、公式和重复行校验脚本；
+- 新增交易数据契约，明确区分 `--`、空白字段和数值零；
+- 保留 Codex 宿主适配配置，同时兼容其他 Agent。
+
+提交：[184577a](https://github.com/Durden-the-coder/Durden_skills/commit/184577a90b95b5993211b65297b19eb7508369e1)
+
+## 2026-07-30 — `ai-biomedical-journal-watch` v0.2.1
+
 ## v0.2.1 — 2026-07-30
 
 ### 期刊范围
