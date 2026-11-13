@@ -10,6 +10,10 @@
 4. [fund-screenshot-digitization](#4-fund-screenshot-digitization)：基金交易截图逐页数字化与 Excel 汇总
 5. [index-value-download](#5-index-value-download)：理杏仁指数估值历史数据下载
 6. [fund-nav-fetch](#6-fund-nav-fetch)：公募基金历史净值抓取与 CSV 整理
+7. [evidence-grounded-scientific-writing](#7-evidence-grounded-scientific-writing)：证据追踪、多角色审校与未决问题管理的科研写作工作流
+8. [academic-humanizer](#8-academic-humanizer)：遵循证据边界的学术文本润色
+9. [scientific-critical-thinking](#9-scientific-critical-thinking)：实验设计、偏倚、统计和证据强度评估
+10. [peer-reviewer](#10-peer-reviewer)：基于 Zotero 文献的视角化模拟同行评审
 
 ---
 
@@ -597,3 +601,54 @@ python scripts/fetch_fund_nav.py --codes "110003,163406"
 ```
 
 注意：该 Skill 仅用于公开历史数据抓取和整理，不构成投资建议，也不保证数据适合直接用于交易决策。
+
+
+---
+
+## 7. evidence-grounded-scientific-writing
+
+面向论文 Results、Discussion、摘要、图注和审稿回复的证据驱动写作工作流。主 Agent 维护唯一正文和 claim ledger，协调 scientific writer、critical challenger、literature researcher、citation adjudicator、peer reviewer 与 academic humanizer，最后由主 Agent 根据证据强度整合并审计。
+
+### 工作流
+
+- **Preflight audit**：明确目标章节、读者、期刊风格、长度、可用图表/方法/统计信息、必需结论和数据缺口；
+- **独立证据评估**：写作者起草，反方审查因果、混杂、偏倚、统计和外推风险，文献研究者为具体主张检索并核验来源；
+- **引用和主张裁决**：逐条核对 claim 与图表、方法或原始文献，记录直接/间接/混合/矛盾/缺失证据，并校准语气；
+- **同行审阅与润色**：选择所需的审稿视角，处理意见后进行学术表达润色和数字、图号、引用终审。
+
+默认三轮，可在风险清理后提前结束。Agent 数量或意见一致不构成证据本身。
+
+### 未决问题管理
+
+对当前证据无法解决、但可能影响结论的重要问题，建立 Discussion/Limitations 队列。每条包含受影响主张、正反证据、重要性、候选审慎措辞、需要的验证，以及 `PENDING_AUTHOR_DECISION` 等状态。队列中的解释不会被悄然写成已证实结论。
+
+### 文件与安装
+
+- [SKILL.md](skills/evidence-grounded-scientific-writing/SKILL.md)：主流程与验收清单
+- [README.md](skills/evidence-grounded-scientific-writing/README.md)：使用说明
+- [claim ledger schema](skills/evidence-grounded-scientific-writing/references/ledger-schema.md)
+- [round protocol](skills/evidence-grounded-scientific-writing/references/round-protocol.md)
+
+将目录复制到 `~/.codex/skills/evidence-grounded-scientific-writing`，在新 Codex 任务中调用 `$evidence-grounded-scientific-writing`。
+
+### 边界
+
+本 Skill 不会自动验证原始实验数据，不以文献替代缺失实验，也不把统计显著性当作效应大小。缺少的数据保持标记；结论性解释和未决事项由作者决定。
+
+## 8. academic-humanizer
+
+用于论文、摘要、rebuttal 和基金申请文本的学术润色组件。先审计 AI 式套话、过度修饰和证据边界，再在保留结构、数字、结果、引用和合理不确定性的前提下修改表达。它也提醒作者遵守目标期刊的 AI 使用披露政策。
+
+核心文件：[SKILL.md](skills/academic-humanizer/SKILL.md)；[README](skills/academic-humanizer/README.md)；随附 MIT 许可与上游来源说明。
+
+## 9. scientific-critical-thinking
+
+用于系统审查科学主张、实验设计和证据质量，覆盖方法学、对照、偏倚和混杂、统计解释、证据层级、逻辑谬误及因果推断。详细框架存于配套 `references/`，适合单独调用，也可为主写作流程提供挑战意见。
+
+核心文件：[SKILL.md](skills/scientific-critical-thinking/SKILL.md)；[README](skills/scientific-critical-thinking/README.md)。源文件标注作者为 K-Dense Inc.，其 MIT 许可和来源说明随包保留。
+
+## 10. peer-reviewer
+
+基于用户 Zotero 中可用全文，选择相关理论或方法视角，构建有来源依据的模拟审稿意见，并完成综合和修订支持。需要已连接的 Zotero MCP 和相关全文；没有来源时不应把模拟视角冒充为特定学者的真实立场。
+
+核心文件：[SKILL.md](skills/peer-reviewer/SKILL.md)；[README](skills/peer-reviewer/README.md)；具体流程见 `phases/`。该组件可独立使用；主写作流程默认使用一般生物医学审稿视角。
